@@ -1,46 +1,77 @@
-<section class="max-w-6xl mx-auto p-4 grid grid-cols-2 md:grid-cols-3 gap-4">
-    <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="T-shirt" class="w-full h-40 object-cover">
-        <div class="p-3 text-center">
-            <h3 class="font-bold text-sm">T-shirt Premium</h3>
-            <p class="text-red-600 font-bold text-sm">5 000 FCFA</p>
-            <button onclick="sendWA('T-shirt Premium', '5000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold uppercase tracking-wider">Commander</button>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magasin Blakis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <nav class="bg-black text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold italic">BLAKIS</h1>
         </div>
+    </nav>
+
+    <div class="bg-gray-900 text-white p-6 text-center">
+        <h2 class="text-3xl font-extrabold">MODE & ACCESSOIRES</h2>
+        <p class="text-gray-400">Qualité et Style à portée de main.</p>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" alt="Jean" class="w-full h-40 object-cover">
-        <div class="p-3 text-center">
-            <h3 class="font-bold text-sm">Jean au Pays</h3>
-            <p class="text-red-600 font-bold text-sm">5 000 FCFA</p>
-            <button onclick="sendWA('Jean au Pays', '5000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold uppercase tracking-wider">Commander</button>
+    <section class="max-w-6xl mx-auto p-4 grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" class="w-full h-40 object-cover">
+            <div class="p-3 text-center">
+                <h3 class="font-bold text-sm">T-shirt Premium</h3>
+                <p class="text-red-600 font-bold text-sm">5 000 FCFA</p>
+                <button onclick="sendWA('T-shirt', '5000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
+            </div>
         </div>
-    </div>
 
-    <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500" alt="Casquette" class="w-full h-40 object-cover">
-        <div class="p-3 text-center">
-            <h3 class="font-bold text-sm">Casquette Stylée</h3>
-            <p class="text-red-600 font-bold text-sm">3 000 FCFA</p>
-            <button onclick="sendWA('Casquette Stylée', '3000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold uppercase tracking-wider">Commander</button>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" class="w-full h-40 object-cover">
+            <div class="p-3 text-center">
+                <h3 class="font-bold text-sm">Jean au Pays</h3>
+                <p class="text-red-600 font-bold text-sm">5 000 FCFA</p>
+                <button onclick="sendWA('Jean', '5000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
+            </div>
         </div>
-    </div>
 
-    <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-        <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500" alt="Montre" class="w-full h-40 object-cover">
-        <div class="p-3 text-center">
-            <h3 class="font-bold text-sm">Montre de Luxe</h3>
-            <p class="text-red-600 font-bold text-sm">15 000 FCFA</p>
-            <button onclick="sendWA('Montre de Luxe', '15000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold uppercase tracking-wider">Commander</button>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500" class="w-full h-40 object-cover">
+            <div class="p-3 text-center">
+                <h3 class="font-bold text-sm">Casquette Stylée</h3>
+                <p class="text-red-600 font-bold text-sm">3 000 FCFA</p>
+                <button onclick="sendWA('Casquette', '3000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
+            </div>
         </div>
-    </div>
 
-    <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-        <img src="https://images.unsplash.com/photo-1603487788363-2a211e04485c?w=500" alt="Claquettes" class="w-full h-40 object-cover">
-        <div class="p-3 text-center">
-            <h3 class="font-bold text-sm">Claquettes Originales</h3>
-            <p class="text-red-600 font-bold text-sm">25 000 FCFA</p>
-            <button onclick="sendWA('Claquettes Originales', '25000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold uppercase tracking-wider">Commander</button>
+        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500" class="w-full h-40 object-cover">
+            <div class="p-3 text-center">
+                <h3 class="font-bold text-sm">Montre de Luxe</h3>
+                <p class="text-red-600 font-bold text-sm">15 000 FCFA</p>
+                <button onclick="sendWA('Montre', '15000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
+            </div>
         </div>
-    </div>
-</section>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+            <img src="https://images.unsplash.com/photo-1603487788363-2a211e04485c?w=500" class="w-full h-40 object-cover">
+            <div class="p-3 text-center">
+                <h3 class="font-bold text-sm">Claquettes Originales</h3>
+                <p class="text-red-600 font-bold text-sm">25 000 FCFA</p>
+                <button onclick="sendWA('Claquettes', '25000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function sendWA(produit, prix) {
+            const numero = "2250173865409";
+            const message = "Salut Blakis ! Je veux commander : " + produit + " à " + prix + " FCFA";
+            window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(message));
+        }
+    </script>
+</body>
+</html>
