@@ -1,13 +1,63 @@
-// 1. On importe "useState" pour que l'app se souvienne des choses
-import React, { useState } from 'react'; 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon App Boutique</title>
+    <style>
+        /* Styles Généraux */
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f4f4f4; padding-bottom: 70px; }
+        
+        /* Barre de Recherche */
+        .search-bar { background: #fff; padding: 10px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .search-bar input { width: 90%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; display: block; margin: auto; }
 
-// ... (dans ton composant principal)
+        /* Banner Promo */
+        .banner { background: #ff9900; color: white; padding: 20px; text-align: center; margin: 10px; border-radius: 8px; font-weight: bold; }
 
-// 2. On crée le panier (vide au début : 0)
-const [nombreArticles, setNombreArticles] = useState(0);
+        /* Grille de Produits */
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
+        .product-card { background: #fff; padding: 10px; border-radius: 5px; text-align: center; }
+        .product-card img { width: 100%; border-radius: 5px; }
+        .price { color: #f68b1e; font-weight: bold; font-size: 1.1em; margin-top: 5px; }
+        .old-price { text-decoration: line-through; color: #888; font-size: 0.8em; }
 
-// 3. La fonction pour ajouter un article
-const ajouterAuPanier = () => {
-  setNombreArticles(nombreArticles + 1);
-  alert("Article ajouté au panier !");
-};
+        /* Menu du Bas */
+        .nav-bottom { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #ddd; }
+        .nav-item { text-align: center; font-size: 0.8em; color: #333; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Rechercher sur ma boutique...">
+    </div>
+
+    <div class="banner">
+        NOUVEL ARRIVAGE <br> Jusqu'à -50% !
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://via.placeholder.com/150" alt="Chaussures">
+            <p>Chaussures Classiques</p>
+            <div class="price">5,250 FCFA</div>
+            <div class="old-price">10,000 FCFA</div>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/150" alt="Montre">
+            <p>Montre de Luxe</p>
+            <div class="price">11,500 FCFA</div>
+            <div class="old-price">20,000 FCFA</div>
+        </div>
+    </div>
+
+    <div class="nav-bottom">
+        <div class="nav-item">🏠<br>Accueil</div>
+        <div class="nav-item">📂<br>Catégories</div>
+        <div class="nav-item">🛒<br>Panier</div>
+        <div class="nav-item">👤<br>Compte</div>
+    </div>
+
+</body>
+</html>
