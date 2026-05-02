@@ -3,123 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLAKIS | Boutique Officielle</title>
+    <title>BLAKIS STORE | Panier & Paiement</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        #side-menu { transition: transform 0.3s ease-in-out; }
-    </style>
 </head>
-<body class="bg-[#f1f1f2] font-sans pb-16">
+<body class="bg-gray-100 font-sans pb-24">
 
-    <div id="side-menu" class="fixed inset-y-0 left-0 w-64 bg-white z-[100] shadow-2xl transform -translate-x-full">
-        <div class="bg-[#f68b1e] p-5 text-white">
-            <div class="flex justify-between items-center">
-                <h2 class="font-bold">Menu Blakis</h2>
-                <button onclick="toggleMenu()"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <p class="text-xs mt-2 italic">Bondoukou, Côte d'Ivoire</p>
-        </div>
-        <div class="p-4 space-y-4 text-gray-700">
-            <div class="flex items-center space-x-3"><i class="fa-solid fa-house w-6"></i> <span>Accueil</span></div>
-            <div class="flex items-center space-x-3"><i class="fa-solid fa-bolt w-6"></i> <span>Ventes Flash</span></div>
-            <div class="flex items-center space-x-3"><i class="fa-solid fa-list w-6"></i> <span>Catégories</span></div>
-            <hr>
-            <div class="flex items-center space-x-3"><i class="fa-solid fa-phone w-6"></i> <span>Nous contacter</span></div>
-            <div class="flex items-center space-x-3 text-green-600"><i class="fa-brands fa-whatsapp w-6"></i> <span>Aide WhatsApp</span></div>
-        </div>
-    </div>
-
-    <header class="bg-[#f68b1e] p-3 sticky top-0 z-50 shadow-md">
-        <div class="flex items-center space-x-4 mb-2 text-white">
-            <button onclick="toggleMenu()"><i class="fa-solid fa-bars text-xl"></i></button>
-            <h1 class="text-xl font-black italic tracking-taper flex-1">BLAKIS</h1>
-            <i class="fa-solid fa-cart-shopping text-xl"></i>
-        </div>
-        <div class="relative">
-            <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Chercher sur Blakis..." class="w-full p-2.5 rounded shadow-inner outline-none text-sm pl-10">
-            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+    <header class="bg-[#f68b1e] p-3 sticky top-0 z-50 shadow-md flex items-center justify-between">
+        <h1 class="text-white text-xl font-black italic">BLAKIS</h1>
+        <div class="relative cursor-pointer" onclick="showCart()">
+            <i class="fa-solid fa-cart-shopping text-white text-2xl"></i>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
         </div>
     </header>
 
-    <div class="bg-blue-600 text-white p-4 text-center font-bold text-sm mb-2">
-        🚚 LIVRAISON GRATUITE SUR BONDOUKOU !
-    </div>
+    <div class="p-2 grid grid-cols-2 gap-2" id="grid"></div>
 
-    <div class="flex overflow-x-auto p-2 space-x-3 bg-white scrollbar-hide border-b">
-        <button onclick="filterCat('all')" class="whitespace-nowrap bg-orange-100 text-[#f68b1e] px-4 py-1.5 rounded-full font-bold text-[11px]">Tous</button>
-        <button onclick="filterCat('elec')" class="whitespace-nowrap bg-gray-100 px-4 py-1.5 rounded-full text-[11px]">Électricité</button>
-        <button onclick="filterCat('tel')" class="whitespace-nowrap bg-gray-100 px-4 py-1.5 rounded-full text-[11px]">Téléphones</button>
-        <button onclick="filterCat('maison')" class="whitespace-nowrap bg-gray-100 px-4 py-1.5 rounded-full text-[11px]">Maison</button>
-    </div>
+    <div id="cart-modal" class="fixed inset-0 bg-black/50 z-[100] hidden flex justify-center items-end">
+        <div class="bg-white w-full max-h-[80vh] rounded-t-3xl p-5 overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold">Mon Panier</h2>
+                <button onclick="hideCart()" class="text-gray-500 text-2xl">&times;</button>
+            </div>
+            <div id="cart-items" class="space-y-3 mb-4"></div>
+            <div class="border-t pt-4">
+                <div class="flex justify-between font-bold text-lg mb-4">
+                    <span>Total à payer :</span>
+                    <span id="cart-total" class="text-[#f68b1e]">0 FCFA</span>
+                </div>
+                
+                <h3 class="font-bold mb-2">Moyen de paiement :</h3>
+                <select id="payment-method" class="w-full p-2 border rounded mb-4 outline-none">
+                    <option value="Wave">Wave</option>
+                    <option value="Orange Money">Orange Money</option>
+                    <option value="Moov Money">Moov Money</option>
+                    <option value="Paiement à la livraison">Paiement à la livraison</option>
+                </select>
 
-    <div class="p-2 grid grid-cols-2 gap-2" id="productGrid"></div>
-
-    <div class="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 flex justify-around p-2 z-50 shadow-lg">
-        <div class="flex flex-col items-center text-[#f68b1e]">
-            <i class="fa-solid fa-house"></i>
-            <span class="text-[10px]">Accueil</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-500" onclick="filterCat('tel')">
-            <i class="fa-solid fa-list"></i>
-            <span class="text-[10px]">Catégories</span>
-        </div>
-        <div class="flex flex-col items-center text-gray-500" onclick="window.open('https://wa.me/2250173865409')">
-            <i class="fa-solid fa-circle-question"></i>
-            <span class="text-[10px]">Aide</span>
+                <button onclick="checkout()" class="w-full bg-[#f68b1e] text-white py-3 rounded-xl font-bold shadow-lg">VALIDER LA COMMANDE</button>
+            </div>
         </div>
     </div>
 
     <script>
         const products = [
-            {id:1, cat:'elec', n: 'Ventilateur Binatone', p: '18000', img: 'https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=400'},
-            {id:2, cat:'elec', n: 'Rallonge 5m', p: '3500', img: 'https://images.unsplash.com/photo-1558403194-611308249627?w=400'},
-            {id:3, cat:'tel', n: 'Chargeur iPhone 20W', p: '5000', img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400'},
-            {id:4, cat:'tel', n: 'Airpods Pro Luxe', p: '10000', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'},
-            {id:5, cat:'maison', n: 'Lit 2 Places', p: '150000', img: 'https://images.unsplash.com/photo-1505693419173-42b9258a6270?w=400'},
-            {id:6, cat:'maison', n: 'Matelas Ortho', p: '85000', img: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400'}
+            {id:1, n: 'Ventilateur Binatone', p: 18000, img: 'https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=400'},
+            {id:2, n: 'Chargeur iPhone', p: 5000, img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400'},
+            {id:3, n: 'Airpods Pro', p: 10000, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'},
+            {id:4, n: 'Rallonge 5m', p: 3500, img: 'https://images.unsplash.com/photo-1558403194-611308249627?w=400'}
         ];
 
-        function toggleMenu() {
-            const menu = document.getElementById('side-menu');
-            if (menu.style.transform === 'translateX(0%)') {
-                menu.style.transform = 'translateX(-100%)';
-            } else {
-                menu.style.transform = 'translateX(0%)';
-            }
+        let cart = [];
+
+        function renderProducts() {
+            document.getElementById('grid').innerHTML = products.map(p => `
+                <div class="bg-white p-2 rounded shadow-sm border border-gray-100">
+                    <img src="${p.img}" class="w-full h-32 object-cover rounded">
+                    <h3 class="text-xs font-bold mt-2 h-8 overflow-hidden">${p.n}</h3>
+                    <p class="text-[#f68b1e] font-black my-1">${p.p} F</p>
+                    <button onclick="addToCart(${p.id})" class="w-full bg-black text-white py-1.5 rounded text-[10px] font-bold">+ PANIER</button>
+                </div>
+            `).join('');
         }
 
-        function displayProducts(items) {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = items.map(art => `
-                <div class="bg-white rounded shadow-sm overflow-hidden flex flex-col">
-                    <img src="${art.img}" class="w-full h-32 object-cover">
-                    <div class="p-2 flex-1 flex flex-col justify-between">
-                        <h3 class="text-[11px] text-gray-800 leading-tight h-8 overflow-hidden">${art.n}</h3>
-                        <p class="text-black font-bold text-sm my-1">${art.p} FCFA</p>
-                        <button onclick="order('${art.n}', '${art.p}')" class="w-full bg-[#f68b1e] text-white py-2 rounded text-[10px] font-bold">COMMANDER</button>
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCart();
+            alert(product.n + " ajouté au panier !");
+        }
+
+        function updateCart() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const total = cart.reduce((sum, item) => sum + item.p, 0);
+            document.getElementById('cart-total').innerText = total + " FCFA";
+            
+            document.getElementById('cart-items').innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center text-sm border-b pb-2">
+                    <span>${item.n}</span>
+                    <div class="flex items-center gap-3">
+                        <span class="font-bold">${item.p} F</span>
+                        <button onclick="removeFromCart(${index})" class="text-red-500"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function searchProduct() {
-            const text = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => p.n.toLowerCase().includes(text));
-            displayProducts(filtered);
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
         }
 
-        function filterCat(c) {
-            if(c === 'all') displayProducts(products);
-            else displayProducts(products.filter(p => p.cat === c));
+        function showCart() { document.getElementById('cart-modal').classList.remove('hidden'); }
+        function hideCart() { document.getElementById('cart-modal').classList.add('hidden'); }
+
+        function checkout() {
+            const total = cart.reduce((sum, item) => sum + item.p, 0);
+            const method = document.getElementById('payment-method').value;
+            const itemsList = cart.map(i => i.n).join(', ');
+            const msg = `Salut Blakis ! Je commande : ${itemsList}. Total : ${total} FCFA. Paiement par : ${method}`;
+            window.open(`https://wa.me/2250173865409?text=${encodeURIComponent(msg)}`);
         }
 
-        function order(n, p) {
-            window.open(`https://wa.me/2250173865409?text=Je suis intéressé par : ${n} (${p} FCFA)`);
-        }
-
-        displayProducts(products);
+        renderProducts();
     </script>
 </body>
 </html>
