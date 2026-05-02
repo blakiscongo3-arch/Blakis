@@ -371,5 +371,108 @@
         function ajouter() { alert("Article ajouté au panier !"); }
     </script>
 </body>
-</html>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jumia Clone Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: sans-serif; -webkit-tap-highlight-color: transparent; }
+        .page { display: none; height: 100vh; overflow-y: auto; }
+        .active { display: block; }
+        .jumia-orange { color: #f68b1e; }
+        .bg-jumia { background-color: #f68b1e; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div id="auth-page" class="page active bg-white p-6 flex flex-col justify-center">
+        <div class="text-center mb-8">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Jumia_Logo.png/1200px-Jumia_Logo.png" class="w-32 mx-auto mb-4">
+            <h2 class="text-xl font-bold">Bienvenue chez Blakis Store</h2>
+            <p class="text-gray-500 text-sm">Inscrivez-vous pour continuer</p>
+        </div>
+        <div class="space-y-4">
+            <input type="text" id="reg-name" placeholder="Nom complet" class="w-full p-4 border rounded-lg outline-none focus:border-orange-500">
+            <input type="tel" id="reg-phone" placeholder="Numéro de téléphone" class="w-full p-4 border rounded-lg outline-none focus:border-orange-500">
+            <button onclick="login()" class="w-full bg-jumia text-white font-bold p-4 rounded-lg shadow-lg">CRÉER MON COMPTE</button>
+        </div>
+    </div>
+
+    <header id="main-nav" class="hidden fixed top-0 w-full bg-jumia p-3 flex items-center justify-between z-50">
+        <i class="fa-solid fa-bars text-white text-xl"></i>
+        <div class="flex-1 mx-3 bg-white rounded flex items-center p-2">
+            <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2"></i>
+            <input type="text" placeholder="Chercher sur Jumia" class="w-full text-sm outline-none">
+        </div>
+        <div class="relative">
+            <i class="fa-solid fa-cart-shopping text-white text-xl"></i>
+            <span class="absolute -top-2 -right-2 bg-black text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center">0</span>
+        </div>
+    </header>
+
+    <div id="home-page" class="page pt-16 pb-20">
+        <div class="p-3">
+            <div class="bg-blue-600 h-32 rounded-lg flex items-center justify-center text-white font-bold">PROMO DE LA SEMAINE</div>
+        </div>
+        <div class="bg-white m-3 rounded shadow-sm">
+            <div class="bg-red-600 text-white p-2 flex justify-between text-xs font-bold rounded-t">
+                <span>⚡ VENTES FLASH</span>
+                <span>VOIR TOUT ></span>
+            </div>
+            <div class="flex overflow-x-auto p-3 gap-4">
+                <div class="min-w-[120px] text-center">
+                    <img src="https://m.media-amazon.com/images/I/71YfT8O25HL._AC_SL1500_.jpg" class="h-20 mx-auto">
+                    <p class="text-xs mt-1 truncate">Airpods Pro</p>
+                    <p class="font-bold text-sm">15.000 F</p>
+                </div>
+                <div class="min-w-[120px] text-center">
+                    <img src="https://m.media-amazon.com/images/I/61l9ppRIiqL._AC_SL1500_.jpg" class="h-20 mx-auto">
+                    <p class="text-xs mt-1 truncate">iPhone 13</p>
+                    <p class="font-bold text-sm">450.000 F</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="account-page" class="page pt-16 pb-20 bg-gray-50">
+        <div class="bg-white p-6 mb-4">
+            <h2 class="text-gray-500 uppercase text-xs font-bold mb-4">Informations personnelles</h2>
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-xl font-bold" id="user-icon">?</div>
+                <div>
+                    <p class="font-bold" id="user-name-display">Utilisateur</p>
+                    <p class="text-gray-500 text-sm" id="user-phone-display">+225 ...</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white space-y-1">
+            <div class="p-4 border-b flex justify-between"><span><i class="fa-solid fa-box mr-3"></i> Commandes</span> <i class="fa-solid fa-chevron-right text-gray-300"></i></div>
+            <div class="p-4 border-b flex justify-between"><span><i class="fa-solid fa-envelope mr-3"></i> Messages</span> <i class="fa-solid fa-chevron-right text-gray-300"></i></div>
+            <div onclick="location.reload()" class="p-4 text-red-500 font-bold border-b">DÉCONNEXION</div>
+        </div>
+    </div>
+
+    <nav id="bottom-bar" class="hidden fixed bottom-0 w-full bg-white border-t flex justify-around p-2 z-50">
+        <button onclick="showPage('home-page')" class="flex flex-col items-center text-orange-500">
+            <i class="fa-solid fa-house text-lg"></i><span class="text-[10px]">Accueil</span>
+        </button>
+        <button onclick="showPage('account-page')" class="flex flex-col items-center text-gray-400">
+            <i class="fa-solid fa-user text-lg"></i><span class="text-[10px]">Compte</span>
+        </button>
+    </nav>
+
+    <script>
+        function login() {
+            const name = document.getElementById('reg-name').value;
+            const phone = document.getElementById('reg-phone').value;
+            if(name.length < 2) { alert("Nom invalide"); return; }
+            
+            // Stockage et affichage
+            document.getElementById('user-name-display').innerText = name;
+            document.getElementById('user
+
 
