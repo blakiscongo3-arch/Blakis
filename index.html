@@ -369,6 +369,14 @@
 
     // On lance la vérification dès que la page s'affiche
     window.addEventListener('DOMContentLoaded', afficherProfil);
-</script>
+</script>// C'est ce code qui allume tous les moteurs de l'application
+window.addEventListener('DOMContentLoaded', () => {
+    render();          // Affiche les 20 articles
+    startTimer();      // Lance le compte à rebours
+    checkUser();       // Connecte le client automatiquement
+    updateCartUI();    // Prépare le panier
+    console.log("Blakis Store est en ligne et travaille ! ✅");
+});
+
 
 
