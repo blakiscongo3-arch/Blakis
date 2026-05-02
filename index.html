@@ -3,75 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magasin Blakis</title>
+    <title>Blakis Store - 50 Articles</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans text-xs">
 
-    <nav class="bg-black text-white p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold italic">BLAKIS</h1>
-        </div>
+    <nav class="bg-yellow-500 text-black p-3 shadow-lg sticky top-0 z-50 flex justify-between items-center">
+        <h1 class="text-xl font-black italic">BLAKIS STORE</h1>
+        <div class="text-[10px] font-bold bg-black text-white px-2 py-1 rounded">PROMO DISPO</div>
     </nav>
 
-    <div class="bg-gray-900 text-white p-6 text-center">
-        <h2 class="text-3xl font-extrabold">MODE & ACCESSOIRES</h2>
-        <p class="text-gray-400">Qualité et Style à portée de main.</p>
+    <div class="bg-blue-600 text-white text-center p-2 font-bold">
+        L'appli est disponible ! Cliquez sur les 3 points > "Installer"
     </div>
 
-    <section class="max-w-6xl mx-auto p-4 grid grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" class="w-full h-40 object-cover">
-            <div class="p-3 text-center">
-                <h3 class="font-bold text-sm">T-shirt Premium</h3>
-                <p class="text-red-600 font-bold text-sm">5 000 FCFA</p>
-                <button onclick="sendWA('T-shirt', '5000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
+    <div class="p-2 space-y-6">
+
+        <div>
+            <h2 class="bg-black text-white p-2 font-bold text-sm mb-3 rounded">⚡ RAYON ÉLECTRIQUE & COURANT</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <script>
+                    const elec = [
+                        ['Ventilateur Grand Modèle', '18000'], ['Rallonge 5 Prises', '3500'], ['Ampoule LED 12W', '1000'],
+                        ['Prise Murale Double', '2500'], ['Stabilisateur TV', '15000'], ['Fer à repasser', '8500'],
+                        ['Interrupteur Luxe', '1500'], ['Câble électrique 10m', '5000'], ['Douille à télécommande', '4500'],
+                        ['Batterie Solaire', '25000'], ['Projecteur LED 50W', '12000'], ['Plaque Chauffante', '10000'],
+                        ['Disjoncteur 16A', '3000'], ['Coffret Électrique', '7000'], ['Multimètre Digital', '9000'],
+                        ['Pince à dénuder', '4000'], ['Scotch Électricien', '500'], ['Fiche Mâle/Femelle', '800'],
+                        ['Moteur Ventilateur', '6000'], ['Sèche-cheveux pro', '12000']
+                    ];
+                    elec.forEach(item => {
+                        document.write(`
+                            <div class="bg-white rounded shadow p-2 border border-gray-200">
+                                <div class="w-full h-24 bg-gray-200 rounded flex items-center justify-center text-gray-400">PHOTO</div>
+                                <h3 class="font-bold mt-1 h-8 overflow-hidden">${item[0]}</h3>
+                                <p class="text-red-600 font-black">${item[1]} F</p>
+                                <button onclick="sendWA('${item[0]}', '${item[1]}')" class="w-full bg-yellow-500 text-black mt-1 py-2 rounded font-bold">ACHETER</button>
+                            </div>
+                        `);
+                    });
+                </script>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-            <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" class="w-full h-40 object-cover">
-            <div class="p-3 text-center">
-                <h3 class="font-bold text-sm">Jean au Pays</h3>
-                <p class="text-red-600 font-bold text-sm">5 000 FCFA</p>
-                <button onclick="sendWA('Jean', '5000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
+        <div>
+            <h2 class="bg-blue-800 text-white p-2 font-bold text-sm mb-3 rounded">📱 RAYON TÉLÉPHONIE</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <script>
+                    const tel = [
+                        ['Chargeur Complet iPhone', '5000'], ['Câble Type-C Rapide', '2000'], ['Écouteurs Simple', '1500'],
+                        ['Airpods Pro Qualité', '10000'], ['Powerbank 20000mAh', '12000'], ['Carte Mémoire 64Go', '6000'],
+                        ['Coque Antichoc All', '3000'], ['Vitre de protection', '2000'], ['Support Voiture', '3500'],
+                        ['Trépied Ring Light', '15000'], ['Micro Cravate Sans fil', '8000'], ['Clé USB 32Go', '4500'],
+                        ['Kit Main Libre BT', '5000'], ['Adaptateur OTG', '1500'], ['Pochette Étanche', '2500'],
+                        ['Haut-parleur Bluetooth', '9000'], ['Smartwatch Serie 8', '18000'], ['Batterie Samsung', '7000'],
+                        ['Afficheur Original', '25000'], ['Pince de réparation', '2000']
+                    ];
+                    tel.forEach(item => {
+                        document.write(`
+                            <div class="bg-white rounded shadow p-2 border border-gray-200">
+                                <div class="w-full h-24 bg-blue-50 rounded flex items-center justify-center text-blue-300">PHOTO</div>
+                                <h3 class="font-bold mt-1 h-8 overflow-hidden">${item[0]}</h3>
+                                <p class="text-blue-700 font-black">${item[1]} F</p>
+                                <button onclick="sendWA('${item[0]}', '${item[1]}')" class="w-full bg-blue-800 text-white mt-1 py-2 rounded font-bold">ACHETER</button>
+                            </div>
+                        `);
+                    });
+                </script>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500" class="w-full h-40 object-cover">
-            <div class="p-3 text-center">
-                <h3 class="font-bold text-sm">Casquette Stylée</h3>
-                <p class="text-red-600 font-bold text-sm">3 000 FCFA</p>
-                <button onclick="sendWA('Casquette', '3000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=500" class="w-full h-40 object-cover">
-            <div class="p-3 text-center">
-                <h3 class="font-bold text-sm">Montre de Luxe</h3>
-                <p class="text-red-600 font-bold text-sm">15 000 FCFA</p>
-                <button onclick="sendWA('Montre', '15000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-            <img src="https://images.unsplash.com/photo-1603487788363-2a211e04485c?w=500" class="w-full h-40 object-cover">
-            <div class="p-3 text-center">
-                <h3 class="font-bold text-sm">Claquettes Originales</h3>
-                <p class="text-red-600 font-bold text-sm">25 000 FCFA</p>
-                <button onclick="sendWA('Claquettes', '25000')" class="mt-2 w-full bg-black text-white py-2 rounded text-xs font-bold">COMMANDER</button>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        function sendWA(produit, prix) {
-            const numero = "2250173865409";
-            const message = "Salut Blakis ! Je veux commander : " + produit + " à " + prix + " FCFA";
-            window.open("https://wa.me/" + numero + "?text=" + encodeURIComponent(message));
-        }
-    </script>
-</body>
-</html>
+        <div>
+            <h2 class="bg-red-700 text-white p
