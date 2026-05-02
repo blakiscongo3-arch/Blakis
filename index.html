@@ -3,85 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLAKIS SUPER STORE</title>
+    <title>BLAKIS | Boutique Officielle</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        #side-menu { transition: transform 0.3s ease-in-out; }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans pb-20">
+<body class="bg-[#f1f1f2] font-sans pb-16">
 
-    <nav class="bg-black text-white p-4 sticky top-0 z-50 shadow-2xl">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-black italic tracking-taper">BLAKIS STORE</h1>
-            <span class="text-xs bg-yellow-500 text-black px-2 py-1 rounded-full font-bold">50+ ARTICLES</span>
+    <div id="side-menu" class="fixed inset-y-0 left-0 w-64 bg-white z-[100] shadow-2xl transform -translate-x-full">
+        <div class="bg-[#f68b1e] p-5 text-white">
+            <div class="flex justify-between items-center">
+                <h2 class="font-bold">Menu Blakis</h2>
+                <button onclick="toggleMenu()"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <p class="text-xs mt-2 italic">Bondoukou, Côte d'Ivoire</p>
         </div>
-    </nav>
-
-    <div class="p-4">
-        <h2 class="text-xl font-bold border-l-4 border-yellow-500 pl-2 mb-4">⚡ ÉLECTROMÉNAGER & COURANT</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="rayon-elec"></div>
+        <div class="p-4 space-y-4 text-gray-700">
+            <div class="flex items-center space-x-3"><i class="fa-solid fa-house w-6"></i> <span>Accueil</span></div>
+            <div class="flex items-center space-x-3"><i class="fa-solid fa-bolt w-6"></i> <span>Ventes Flash</span></div>
+            <div class="flex items-center space-x-3"><i class="fa-solid fa-list w-6"></i> <span>Catégories</span></div>
+            <hr>
+            <div class="flex items-center space-x-3"><i class="fa-solid fa-phone w-6"></i> <span>Nous contacter</span></div>
+            <div class="flex items-center space-x-3 text-green-600"><i class="fa-brands fa-whatsapp w-6"></i> <span>Aide WhatsApp</span></div>
+        </div>
     </div>
 
-    <div class="p-4">
-        <h2 class="text-xl font-bold border-l-4 border-blue-500 pl-2 mb-4">📱 ACCESSOIRES TÉLÉPHONE</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="rayon-tel"></div>
+    <header class="bg-[#f68b1e] p-3 sticky top-0 z-50 shadow-md">
+        <div class="flex items-center space-x-4 mb-2 text-white">
+            <button onclick="toggleMenu()"><i class="fa-solid fa-bars text-xl"></i></button>
+            <h1 class="text-xl font-black italic tracking-taper flex-1">BLAKIS</h1>
+            <i class="fa-solid fa-cart-shopping text-xl"></i>
+        </div>
+        <div class="relative">
+            <input type="text" id="searchInput" onkeyup="searchProduct()" placeholder="Chercher sur Blakis..." class="w-full p-2.5 rounded shadow-inner outline-none text-sm pl-10">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+        </div>
+    </header>
+
+    <div class="bg-blue-600 text-white p-4 text-center font-bold text-sm mb-2">
+        🚚 LIVRAISON GRATUITE SUR BONDOUKOU !
     </div>
 
-    <a href="https://wa.me/2250173865409?text=Bonjour Blakis, j'ai une question !" 
-       target="_blank"
-       class="fixed bottom-6 right-6 bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl z-[100] animate-bounce">
-        <i class="fab fa-whatsapp text-3xl"></i>
-    </a>
+    <div class="flex overflow-x-auto p-2 space-x-3 bg-white scrollbar-hide border-b">
+        <button onclick="filterCat('all')" class="whitespace-nowrap bg-orange-100 text-[#f68b1e] px-4 py-1.5 rounded-full font-bold text-[11px]">Tous</button>
+        <button onclick="filterCat('elec')" class="whitespace-nowrap bg-gray-100 px-4 py-1.5 rounded-full text-[11px]">Électricité</button>
+        <button onclick="filterCat('tel')" class="whitespace-nowrap bg-gray-100 px-4 py-1.5 rounded-full text-[11px]">Téléphones</button>
+        <button onclick="filterCat('maison')" class="whitespace-nowrap bg-gray-100 px-4 py-1.5 rounded-full text-[11px]">Maison</button>
+    </div>
+
+    <div class="p-2 grid grid-cols-2 gap-2" id="productGrid"></div>
+
+    <div class="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 flex justify-around p-2 z-50 shadow-lg">
+        <div class="flex flex-col items-center text-[#f68b1e]">
+            <i class="fa-solid fa-house"></i>
+            <span class="text-[10px]">Accueil</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-500" onclick="filterCat('tel')">
+            <i class="fa-solid fa-list"></i>
+            <span class="text-[10px]">Catégories</span>
+        </div>
+        <div class="flex flex-col items-center text-gray-500" onclick="window.open('https://wa.me/2250173865409')">
+            <i class="fa-solid fa-circle-question"></i>
+            <span class="text-[10px]">Aide</span>
+        </div>
+    </div>
 
     <script>
-        const articlesElec = [
-            {n: 'Ventilateur Binatone', p: '18000', img: 'https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=400'},
-            {n: 'Rallonge 5m', p: '3500', img: 'https://images.unsplash.com/photo-1558403194-611308249627?w=400'},
-            {n: 'Stabilisateur TV', p: '15000', img: 'https://images.unsplash.com/photo-1544006659-f0b21f04cb1d?w=400'},
-            {n: 'Fer à repasser', p: '8500', img: 'https://images.unsplash.com/photo-1517420812313-7949399ff2fc?w=400'},
-            {n: 'Ampoule LED', p: '1000', img: 'https://images.unsplash.com/photo-1550985616-10810253b84d?w=400'},
-            {n: 'Plaque Chauffante', p: '10000', img: 'https://images.unsplash.com/photo-1584990344447-329a05055a51?w=400'},
-            {n: 'Mixeur Moulinex', p: '12000', img: 'https://images.unsplash.com/photo-1570222083705-992951947966?w=400'},
-            {n: 'Bouilloire Élec', p: '7000', img: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400'},
-            {n: 'Prise Multiple', p: '2500', img: 'https://images.unsplash.com/photo-1626260966464-4ed59bbd7c59?w=400'},
-            {n: 'Batterie Solaire', p: '25000', img: 'https://images.unsplash.com/photo-1508514177221-188b171f2bb3?w=400'}
+        const products = [
+            {id:1, cat:'elec', n: 'Ventilateur Binatone', p: '18000', img: 'https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=400'},
+            {id:2, cat:'elec', n: 'Rallonge 5m', p: '3500', img: 'https://images.unsplash.com/photo-1558403194-611308249627?w=400'},
+            {id:3, cat:'tel', n: 'Chargeur iPhone 20W', p: '5000', img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400'},
+            {id:4, cat:'tel', n: 'Airpods Pro Luxe', p: '10000', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'},
+            {id:5, cat:'maison', n: 'Lit 2 Places', p: '150000', img: 'https://images.unsplash.com/photo-1505693419173-42b9258a6270?w=400'},
+            {id:6, cat:'maison', n: 'Matelas Ortho', p: '85000', img: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400'}
         ];
 
-        const articlesTel = [
-            {n: 'Chargeur iPhone', p: '5000', img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400'},
-            {n: 'Câble Type-C', p: '2000', img: 'https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=400'},
-            {n: 'Airpods Pro', p: '10000', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'},
-            {n: 'Powerbank 20k', p: '12000', img: 'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=400'},
-            {n: 'Smartwatch', p: '15000', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400'},
-            {n: 'Coque Antichoc', p: '3000', img: 'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400'},
-            {n: 'Vitre Protection', p: '2000', img: 'https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=400'},
-            {n: 'Écouteurs Filaire', p: '1500', img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'},
-            {n: 'Support Voiture', p: '4000', img: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400'},
-            {n: 'Micro Cravate', p: '8000', img: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=400'}
-        ];
+        function toggleMenu() {
+            const menu = document.getElementById('side-menu');
+            if (menu.style.transform === 'translateX(0%)') {
+                menu.style.transform = 'translateX(-100%)';
+            } else {
+                menu.style.transform = 'translateX(0%)';
+            }
+        }
 
-        function afficher(liste, containerId) {
-            const container = document.getElementById(containerId);
-            liste.forEach(art => {
-                container.innerHTML += `
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
-                        <img src="${art.img}" class="w-full h-32 object-cover">
-                        <div class="p-2 flex-1 flex flex-col justify-between text-center">
-                            <h3 class="text-[11px] font-bold uppercase leading-tight">${art.n}</h3>
-                            <p class="text-red-600 font-black text-sm my-1">${art.p} F</p>
-                            <button onclick="sendWA('${art.n}', '${art.p}')" class="w-full bg-black text-white py-2 rounded text-[10px] font-bold">COMMANDER</button>
-                        </div>
+        function displayProducts(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = items.map(art => `
+                <div class="bg-white rounded shadow-sm overflow-hidden flex flex-col">
+                    <img src="${art.img}" class="w-full h-32 object-cover">
+                    <div class="p-2 flex-1 flex flex-col justify-between">
+                        <h3 class="text-[11px] text-gray-800 leading-tight h-8 overflow-hidden">${art.n}</h3>
+                        <p class="text-black font-bold text-sm my-1">${art.p} FCFA</p>
+                        <button onclick="order('${art.n}', '${art.p}')" class="w-full bg-[#f68b1e] text-white py-2 rounded text-[10px] font-bold">COMMANDER</button>
                     </div>
-                `;
-            });
+                </div>
+            `).join('');
         }
 
-        afficher(articlesElec, 'rayon-elec');
-        afficher(articlesTel, 'rayon-tel');
-
-        function sendWA(n, p) {
-            const msg = "Bonjour Blakis, je veux : " + n + " à " + p + " F";
-            window.open("https://wa.me/2250173865409?text=" + encodeURIComponent(msg));
+        function searchProduct() {
+            const text = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => p.n.toLowerCase().includes(text));
+            displayProducts(filtered);
         }
+
+        function filterCat(c) {
+            if(c === 'all') displayProducts(products);
+            else displayProducts(products.filter(p => p.cat === c));
+        }
+
+        function order(n, p) {
+            window.open(`https://wa.me/2250173865409?text=Je suis intéressé par : ${n} (${p} FCFA)`);
+        }
+
+        displayProducts(products);
     </script>
 </body>
 </html>
