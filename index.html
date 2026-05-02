@@ -177,3 +177,35 @@
     </script>
 </body>
 </html>
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center py-2 z-[500] shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+    
+    <a href="#" class="flex flex-col items-center gap-1 group">
+        <i class="fa-solid fa-house text-orange-500 text-lg"></i>
+        <span class="text-[10px] font-bold text-gray-800">Accueil</span>
+    </a>
+
+    <a href="#" class="flex flex-col items-center gap-1 group">
+        <i class="fa-solid fa-list-ul text-gray-400 text-lg group-active:text-orange-500"></i>
+        <span class="text-[10px] font-bold text-gray-500">Catégories</span>
+    </a>
+
+    <button onclick="openCart()" class="flex flex-col items-center gap-1 group relative">
+        <i class="fa-solid fa-cart-shopping text-gray-400 text-lg group-active:text-orange-500"></i>
+        <span class="text-[10px] font-bold text-gray-500">Panier</span>
+        <div id="nav-dot" class="absolute top-0 right-1 w-2 h-2 bg-red-500 rounded-full hidden"></div>
+    </button>
+
+    <a href="#" class="flex flex-col items-center gap-1 group">
+        <i class="fa-regular fa-heart text-gray-400 text-lg group-active:text-orange-500"></i>
+        <span class="text-[10px] font-bold text-gray-500">Favoris</span>
+    </a>
+
+    <a href="#" class="flex flex-col items-center gap-1 group">
+        <div class="relative">
+            <i class="fa-solid fa-user text-gray-400 text-lg group-active:text-orange-500"></i>
+            <i class="fa-solid fa-circle-check absolute -bottom-1 -right-1 text-[8px] text-gray-800 bg-white rounded-full"></i>
+        </div>
+        <span class="text-[10px] font-bold text-gray-500">Compte</span>
+    </a>
+
+</nav>
