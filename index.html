@@ -1,160 +1,200 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jumia CI | Blakis Store</title>
+    <title>Jumia | Blakis Store Officiel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --jumia-orange: #f68b1e; }
+        body { background-color: #f1f1f2; font-family: 'Roboto', sans-serif; -webkit-tap-highlight-color: transparent; }
         .bg-jumia { background-color: var(--jumia-orange); }
-        .text-jumia { color: var(--jumia-orange); }
-        body { background-color: #f1f1f2; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .product-card { background: white; border-radius: 4px; transition: transform 0.2s; }
-        .product-card:active { transform: scale(0.98); }
-        #cart-sidebar { transition: transform 0.3s ease-in-out; }
-        .loader-dots div { animation: blink 1.4s infinite both; }
-        @keyframes blink { 0% { opacity: 0.2; } 20% { opacity: 1; } 100% { opacity: 0.2; } }
+        .product-card { background: white; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; transition: 0.2s; }
+        .product-card:active { transform: scale(0.97); border: 1px solid var(--jumia-orange); }
+        .btn-pay { background: linear-gradient(90deg, #f68b1e 0%, #ff9900 100%); }
+        #checkout-screen { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .loader { border-top-color: #f68b1e; animation: spinner 0.6s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="pb-16">
+<body class="pb-20">
 
-    <nav class="bg-jumia p-3 sticky top-0 z-[100] shadow-md">
-        <div class="max-w-md mx-auto flex flex-col gap-2">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4 text-white">
-                    <i class="fa-solid fa-bars text-xl" onclick="toggleSidebar()"></i>
-                    <h1 class="text-xl font-black italic tracking-tighter">JUMIA <span class="font-light not-italic text-sm">| Blakis</span></h1>
-                </div>
-                <div class="flex items-center gap-4 text-white">
-                    <i class="fa-solid fa-user text-xl"></i>
-                    <div class="relative" onclick="openCart()">
-                        <i class="fa-solid fa-cart-shopping text-xl"></i>
-                        <span id="badge" class="absolute -top-2 -right-2 bg-red-600 text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-white hidden">0</span>
-                    </div>
-                </div>
+    <nav class="bg-jumia sticky top-0 z-[100] p-3 shadow-lg">
+        <div class="flex items-center justify-between text-white mb-3">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-bars text-xl"></i>
+                <h1 class="text-xl font-black italic">JUMIA <span class="not-italic text-xs font-light">By Blakis</span></h1>
             </div>
-            <div class="relative w-full">
-                <input type="text" placeholder="Chercher un produit, une marque..." class="w-full p-2.5 pl-10 rounded shadow-inner outline-none text-sm border-none">
-                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+            <div class="relative" onclick="openCart()">
+                <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-2 py-0.5 rounded-full border-2 border-white hidden animate-bounce">0</span>
             </div>
+        </div>
+        <div class="relative">
+            <input type="text" placeholder="Rechercher un produit..." class="w-full p-2.5 pl-10 rounded shadow-inner outline-none text-sm border-none">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
         </div>
     </nav>
 
-    <div class="bg-blue-600 text-white text-[11px] p-2 text-center font-bold uppercase tracking-widest">
-        Ventes Flash : Jusqu'à -50% à Bondoukou
-    </div>
-
-    <main class="max-w-md mx-auto p-2 grid grid-cols-2 gap-2" id="shelf">
-        </main>
-
-    <div class="fixed bottom-0 inset-x-0 bg-white border-t flex justify-around p-3 z-50 shadow-2xl">
-        <div class="flex flex-col items-center text-jumia"><i class="fa-solid fa-house text-lg"></i><span class="text-[9px] font-bold">Accueil</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-list text-lg"></i><span class="text-[9px]">Catégories</span></div>
-        <div class="flex flex-col items-center text-gray-400"><i class="fa-solid fa-bolt text-lg"></i><span class="text-[9px]">Flash</span></div>
-        <div class="flex flex-col items-center text-gray-400" onclick="openCart()"><i class="fa-solid fa-cart-shopping text-lg"></i><span class="text-[9px]">Panier</span></div>
-    </div>
-
-    <div id="cart-sidebar" class="fixed inset-0 bg-black/60 z-[200] hidden flex justify-end">
-        <div class="bg-white w-full max-w-sm flex flex-col animate-slide-left">
-            <div class="p-4 border-b flex items-center justify-between">
-                <h2 class="font-bold">PANIER (<span id="cart-qty">0</span>)</h2>
-                <i class="fa-solid fa-xmark text-2xl" onclick="closeCart()"></i>
+    <main class="p-2">
+        <div class="bg-white p-3 mb-2 rounded shadow-sm flex items-center justify-between">
+            <span class="text-xs font-bold text-gray-500 uppercase">Articles en Stock à Bondoukou</span>
+            <span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded-full font-bold">● En Ligne</span>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-2" id="grid-container">
             </div>
-            <div id="cart-list" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
-            <div class="p-4 border-t bg-gray-50">
-                <div class="flex justify-between font-black text-lg mb-4 uppercase">
-                    <span>Total</span>
-                    <span id="total-price" class="text-jumia">0 FCFA</span>
+    </main>
+
+    <div id="cart-drawer" class="fixed inset-0 bg-black/60 z-[200] hidden backdrop-blur-sm">
+        <div class="absolute right-0 top-0 h-full w-full max-w-xs bg-white flex flex-col shadow-2xl">
+            <div class="p-4 border-b flex justify-between items-center bg-gray-50">
+                <h2 class="font-black text-lg">VOTRE PANIER</h2>
+                <i class="fa-solid fa-xmark text-2xl text-gray-400" onclick="closeCart()"></i>
+            </div>
+            <div id="cart-list" class="flex-1 overflow-y-auto p-4 space-y-4">
                 </div>
-                <button onclick="checkoutProcess()" class="w-full bg-jumia text-white py-4 rounded font-bold shadow-xl">COMMANDER</button>
+            <div class="p-5 border-t">
+                <div class="flex justify-between text-xl font-black mb-4 uppercase">
+                    <span>Total</span>
+                    <span id="total-price" class="text-[#f68b1e]">0 F</span>
+                </div>
+                <button onclick="goToPay()" class="w-full btn-pay text-white py-4 rounded-xl font-black shadow-xl active:scale-95 transition-transform uppercase">Passer la commande</button>
             </div>
         </div>
     </div>
 
-    <div id="checkout-screen" class="fixed inset-0 bg-white z-[300] hidden flex flex-col p-6">
-        <div class="mb-6 flex items-center gap-4">
-            <i class="fa-solid fa-arrow-left text-xl" onclick="closeCheckout()"></i>
-            <h2 class="text-xl font-bold">Paiement Sécurisé</h2>
+    <div id="checkout-screen" class="fixed inset-0 bg-white z-[300] translate-y-full flex flex-col">
+        <div class="p-4 border-b flex items-center gap-4">
+            <i class="fa-solid fa-arrow-left text-xl" onclick="closePay()"></i>
+            <h2 class="font-bold text-lg uppercase tracking-widest">Paiement Sécurisé</h2>
         </div>
-        <div class="bg-gray-100 p-4 rounded-lg mb-6">
-            <p class="text-xs text-gray-500">Montant à payer</p>
-            <p id="final-sum" class="text-3xl font-black text-gray-800">0 FCFA</p>
-        </div>
-        <div class="space-y-4">
-            <div class="border-2 border-orange-500 p-4 rounded flex items-center justify-between">
-                <span>Payer par <b>WAVE</b></span>
-                <span class="text-blue-500 text-xl">🌊</span>
+        <div class="p-6 flex-1 max-w-md mx-auto w-full">
+            <div class="bg-orange-50 p-6 rounded-3xl mb-8 border border-orange-100 text-center">
+                <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Montant total à débiter</p>
+                <div id="final-total" class="text-4xl font-black text-gray-900">0 FCFA</div>
             </div>
-            <input type="number" placeholder="Votre numéro (Ex: 0171404345)" class="w-full border-b-2 border-gray-200 py-4 text-xl outline-none focus:border-orange-500">
-            <button onclick="simPay()" class="w-full bg-black text-white py-4 rounded-xl font-black mt-10">CONFIRMER LE RETRAIT</button>
+
+            <div class="space-y-6">
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase ml-1">Numéro Mobile Money (Wave/Orange)</label>
+                    <input type="number" id="phone-input" placeholder="Ex: 0171404345" class="w-full border-b-2 border-orange-500 py-3 text-2xl font-black outline-none">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase ml-1">Code PIN Secret</label>
+                    <input type="password" placeholder="****" class="w-full border-b-2 border-gray-200 py-3 text-2xl font-black outline-none focus:border-orange-500 transition-all">
+                </div>
+                
+                <div id="loading-spinner" class="hidden flex flex-col items-center justify-center py-4">
+                    <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-10 w-10"></div>
+                    <p class="text-xs font-bold text-orange-500 mt-2">Communication avec le serveur...</p>
+                </div>
+
+                <button id="confirm-btn" onclick="processPayment()" class="w-full bg-black text-white py-5 rounded-2xl font-black text-lg shadow-2xl active:scale-95 transition-all">CONFIRMER LE RETRAIT</button>
+            </div>
+            
+            <p class="text-[9px] text-gray-400 text-center mt-10 uppercase font-medium">Sécurisé par le protocole Jumia Pay & Blakis</p>
         </div>
+    </div>
+
+    <div id="success-screen" class="fixed inset-0 bg-white z-[400] hidden flex flex-col items-center justify-center p-10 text-center">
+        <div class="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6">
+            <i class="fa-solid fa-check text-5xl"></i>
+        </div>
+        <h2 class="text-2xl font-black mb-2 uppercase">Commande Réussie !</h2>
+        <p class="text-gray-500 text-sm mb-8">Un agent Blakis Store va vous contacter à Bondoukou pour la livraison.</p>
+        <button onclick="location.reload()" class="bg-black text-white px-10 py-3 rounded-full font-bold">Retour au Magasin</button>
     </div>
 
     <script>
-        const db = [
-            { id: 1, n: "Ventilateur Binatone A16", p: 18500, img: "https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=400" },
-            { id: 2, n: "Chargeur iPhone 20W Original", p: 7500, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400" },
-            { id: 3, n: "Airpods Pro avec Boitier", p: 12000, img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
-            { id: 4, n: "Stabilisateur de tension Digital", p: 22000, img: "https://images.unsplash.com/photo-1544006659-f0b21f04cb1d?w=400" },
-            { id: 5, n: "Smartwatch Ultra Série 9", p: 15000, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" },
-            { id: 6, n: "iPhone 13 Pro Max 256GB", p: 480000, img: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400" }
+        const database = [
+            {id:1, n:"Ventilateur Binatone Pro", p:18500, img:"https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=300"},
+            {id:2, n:"iPhone 13 Pro Max Gold", p:450000, img:"https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=300"},
+            {id:3, n:"Chargeur Rapide 20W", p:7500, img:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=300"},
+            {id:4, n:"Airpods Pro (Qualité A)", p:12000, img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300"},
+            {id:5, n:"Rallonge 5M 3 Sorties", p:4500, img:"https://images.unsplash.com/photo-1558403194-611308249627?w=300"},
+            {id:6, n:"Stabilisateur Automatique", p:15000, img:"https://images.unsplash.com/photo-1544006659-f0b21f04cb1d?w=300"},
+            {id:7, n:"Smartwatch Série 8", p:18000, img:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300"},
+            {id:8, n:"Fer à repasser Philips", p:9500, img:"https://images.unsplash.com/photo-1517420812313-7949399ff2fc?w=300"},
+            {id:9, n:"Mixeur Moulinex Pro", p:25000, img:"https://images.unsplash.com/photo-1570222020676-e03a117d7221?w=300"},
+            {id:10, n:"Paire de Sneakers Nike", p:18000, img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300"},
+            {id:11, n:"T-shirt Coton Blakis", p:5000, img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300"},
+            {id:12, n:"Montre Luxe Argentée", p:25000, img:"https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=300"},
+            {id:13, n:"Sac à dos Ordinateur", p:15000, img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300"},
+            {id:14, n:"Enceinte Bluetooth JBL", p:35000, img:"https://images.unsplash.com/photo-1608156639585-34051b36c4b2?w=300"},
+            {id:15, n:"Powerbank 20.000 mAh", p:14000, img:"https://images.unsplash.com/photo-1609091839311-d536801527d5?w=300"},
+            {id:16, n:"Écouteurs Filaire", p:2000, img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300"},
+            {id:17, n:"Ampoule Rechargeable", p:3500, img:"https://images.unsplash.com/photo-1550985616-10810253b84d?w=300"},
+            {id:18, n:"Rasoir Électrique", p:8000, img:"https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=300"},
+            {id:19, n:"Casque Sony Bass", p:45000, img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300"},
+            {id:20, n:"Micro-onde LG 20L", p:65000, img:"https://images.unsplash.com/photo-1574765345914-f483561a3375?w=300"}
         ];
 
         let cart = [];
 
-        function init() {
-            const shelf = document.getElementById('shelf');
-            shelf.innerHTML = db.map(item => `
-                <div class="product-card flex flex-col p-2 shadow-sm border border-gray-100">
-                    <img src="${item.img}" class="w-full h-32 object-contain bg-gray-50 rounded">
-                    <h3 class="text-[11px] mt-2 h-8 overflow-hidden leading-tight">${item.n}</h3>
-                    <p class="font-bold text-sm mt-1">${item.p.toLocaleString()} F</p>
-                    <button onclick="add(${item.id})" class="mt-2 w-full bg-jumia text-white py-1.5 rounded text-[10px] font-bold uppercase shadow-md active:bg-orange-700">Ajouter</button>
+        function renderProducts() {
+            document.getElementById('grid-container').innerHTML = database.map(item => `
+                <div class="product-card flex flex-col">
+                    <div class="h-32 bg-gray-50 flex items-center justify-center">
+                        <img src="${item.img}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-3 flex-1 flex flex-col">
+                        <h3 class="text-[10px] font-medium text-gray-700 h-8 line-clamp-2">${item.n}</h3>
+                        <p class="text-sm font-black text-gray-900 mt-1">${item.p.toLocaleString()} F</p>
+                        <button onclick="add(${item.id})" class="mt-3 w-full bg-jumia text-white py-2 rounded text-[10px] font-bold uppercase shadow-sm active:opacity-80">Ajouter</button>
+                    </div>
                 </div>
             `).join('');
         }
 
         function add(id) {
-            const item = db.find(x => x.id === id);
-            cart.push(item);
-            updateCart();
-            // Effet Jumia : faire vibrer le panier
-            document.getElementById('badge').classList.remove('hidden');
+            cart.push(database.find(x => x.id === id));
+            updateUI();
         }
 
-        function updateCart() {
-            document.getElementById('badge').innerText = cart.length;
-            document.getElementById('cart-qty').innerText = cart.length;
+        function updateUI() {
+            const badge = document.getElementById('cart-badge');
+            badge.innerText = cart.length;
+            badge.classList.toggle('hidden', cart.length === 0);
+            
             const total = cart.reduce((s, i) => s + i.p, 0);
-            document.getElementById('total-price').innerText = total.toLocaleString() + " FCFA";
-            document.getElementById('final-sum').innerText = total.toLocaleString() + " FCFA";
+            document.getElementById('total-price').innerText = total.toLocaleString() + " F";
+            document.getElementById('final-total').innerText = total.toLocaleString() + " FCFA";
 
             document.getElementById('cart-list').innerHTML = cart.map((i, idx) => `
-                <div class="flex gap-4 items-center bg-gray-50 p-2 rounded">
-                    <img src="${i.img}" class="w-12 h-12 object-cover rounded">
-                    <div class="flex-1"><p class="text-[10px] font-bold">${i.n}</p><p class="text-jumia font-black">${i.p} F</p></div>
-                    <i class="fa-solid fa-trash-can text-red-400" onclick="remove(${idx})"></i>
+                <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                    <img src="${i.img}" class="w-12 h-12 rounded object-cover">
+                    <div class="flex-1 font-bold text-[11px]">${i.n}<br><span class="text-[#f68b1e]">${i.p} F</span></div>
+                    <i class="fa-solid fa-trash-can text-red-500 p-2" onclick="remove(${idx})"></i>
                 </div>
             `).join('');
         }
 
-        function remove(idx) { cart.splice(idx, 1); updateCart(); }
-        function openCart() { document.getElementById('cart-sidebar').classList.remove('hidden'); }
-        function closeCart() { document.getElementById('cart-sidebar').classList.add('hidden'); }
-        function checkoutProcess() { 
-            if(cart.length === 0) return;
-            document.getElementById('checkout-screen').classList.remove('hidden'); 
+        function remove(idx) { cart.splice(idx, 1); updateUI(); }
+        function openCart() { document.getElementById('cart-drawer').classList.remove('hidden'); }
+        function closeCart() { document.getElementById('cart-drawer').classList.add('hidden'); }
+        function goToPay() { 
+            if(cart.length === 0) return alert("Votre panier est vide !");
+            document.getElementById('checkout-screen').classList.remove('translate-y-full'); 
         }
-        function closeCheckout() { document.getElementById('checkout-screen').classList.add('hidden'); }
+        function closePay() { document.getElementById('checkout-screen').classList.add('translate-y-full'); }
 
-        function simPay() {
-            alert("🔒 Initialisation du paiement Wave...\nUne demande de confirmation a été envoyée au numéro configuré.");
-            location.reload();
+        function processPayment() {
+            const tel = document.getElementById('phone-input').value;
+            if(!tel) return alert("Veuillez saisir votre numéro !");
+
+            document.getElementById('confirm-btn').classList.add('hidden');
+            document.getElementById('loading-spinner').classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('checkout-screen').classList.add('hidden');
+                document.getElementById('success-screen').classList.remove('hidden');
+            }, 3000);
         }
 
-        init();
+        renderProducts();
     </script>
 </body>
 </html>
