@@ -259,4 +259,116 @@
                     <i class="fa-solid fa-check text-[10px]"></i>
                 </div>
                 <span class="text-xs font-black text-gray-
+<div id="auth-box" class="bg-white m-2 p-4 rounded-lg shadow-sm border-l-4 border-orange-500">
+    <div id="logged-out">
+        <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Nouveau sur Blakis Store ?</p>
+        <div class="flex gap-2">
+            <input type="text" id="client-name" placeholder="Ton Nom" class="flex-1 p-2 bg-gray-50 border rounded text-xs outline-none focus:border-orange-500">
+            <button onclick="creerCompte()" class="bg-orange-500 text-white px-4 py-2 rounded text-[10px] font-black uppercase shadow-sm">Créer mon compte</button>
+        </div>
+    </div>
+    
+    <div id="logged-in" class="hidden flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-user-check text-orange-500"></i>
+            </div>
+            <div>
+                <p class="text-[10px] text-gray-400 font-bold uppercase">Client Certifié</p>
+                <p id="display-name" class="font-black text-gray-800 text-sm"></p>
+            </div>
+        </div>
+        <button onclick="deconnexion()" class="text-[9px] font-bold text-red-500 uppercase underline">Quitter</button>
+    </div>
+</div>
+
+<script>
+    // FONCTION POUR CRÉER LE COMPTE
+    function creerCompte() {
+        const nom = document.getElementById('client-name').value;
+        if(nom.trim() === "") {
+            alert("Petit ! Il faut mettre ton nom d'abord.");
+            return;
+        }
+        
+        // On enregistre le nom dans le téléphone
+        localStorage.setItem('nom_client', nom);
+        afficherProfil();
+        alert("Félicitations " + nom + " ! Ton compte est prêt pour l'achat.");
+    }
+
+    // FONCTION POUR AFFICHER LE NOM SI DÉJÀ CONNECTÉ
+    function afficherProfil() {
+        const nomSauvegarde = localStorage.getItem('nom_client');
+        if(nomSauvegarde) {
+            document.getElementById('logged-out').classList.add('hidden');
+            document.getElementById('logged-in').classList.remove('hidden');
+            document.getElementById('display-name').innerText = nomSauvegarde;
+        }
+    }
+
+    function deconnexion() {
+        localStorage.removeItem('nom_client');
+        location.reload();
+    }
+
+    // On lance la vérification dès que la page s'affiche
+    window.addEventListener('DOMContentLoaded', afficherProfil);
+</script><div id="auth-box" class="bg-white m-2 p-4 rounded-lg shadow-sm border-l-4 border-orange-500">
+    <div id="logged-out">
+        <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Nouveau sur Blakis Store ?</p>
+        <div class="flex gap-2">
+            <input type="text" id="client-name" placeholder="Ton Nom" class="flex-1 p-2 bg-gray-50 border rounded text-xs outline-none focus:border-orange-500">
+            <button onclick="creerCompte()" class="bg-orange-500 text-white px-4 py-2 rounded text-[10px] font-black uppercase shadow-sm">Créer mon compte</button>
+        </div>
+    </div>
+    
+    <div id="logged-in" class="hidden flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-user-check text-orange-500"></i>
+            </div>
+            <div>
+                <p class="text-[10px] text-gray-400 font-bold uppercase">Client Certifié</p>
+                <p id="display-name" class="font-black text-gray-800 text-sm"></p>
+            </div>
+        </div>
+        <button onclick="deconnexion()" class="text-[9px] font-bold text-red-500 uppercase underline">Quitter</button>
+    </div>
+</div>
+
+<script>
+    // FONCTION POUR CRÉER LE COMPTE
+    function creerCompte() {
+        const nom = document.getElementById('client-name').value;
+        if(nom.trim() === "") {
+            alert("Petit ! Il faut mettre ton nom d'abord.");
+            return;
+        }
+        
+        // On enregistre le nom dans le téléphone
+        localStorage.setItem('nom_client', nom);
+        afficherProfil();
+        alert("Félicitations " + nom + " ! Ton compte est prêt pour l'achat.");
+    }
+
+    // FONCTION POUR AFFICHER LE NOM SI DÉJÀ CONNECTÉ
+    function afficherProfil() {
+        const nomSauvegarde = localStorage.getItem('nom_client');
+        if(nomSauvegarde) {
+            document.getElementById('logged-out').classList.add('hidden');
+            document.getElementById('logged-in').classList.remove('hidden');
+            document.getElementById('display-name').innerText = nomSauvegarde;
+        }
+    }
+
+    function deconnexion() {
+        localStorage.removeItem('nom_client');
+        location.reload();
+    }
+
+    // On lance la vérification dès que la page s'affiche
+    window.addEventListener('DOMContentLoaded', afficherProfil);
+</script>
+
 
