@@ -1,68 +1,13 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+// 1. On importe "useState" pour que l'app se souvienne des choses
+import React, { useState } from 'react'; 
 
-export default function App() {
-  // On simule une petite base de données de ta boutique
-  const [produits] = useState([
-    { id: 1, nom: "Chaussures Sport", prix: 15000, image: "👟" },
-    { id: 2, nom: "T-shirt Premium", prix: 5000, image: "👕" },
-    { id: 3, nom: "Montre Luxe", prix: 25000, image: "⌚" },
-    { id: 4, nom: "Casquette Stylée", prix: 3500, image: "🧢" },
-  ]);
+// ... (dans ton composant principal)
 
-  return (
-    <View style={styles.container}>
-      {/* --- EN-TÊTE (Comme Jumia) --- */}
-      <View style={styles.header}>
-        <Text style={styles.logo}>MA BOUTIQUE</Text>
-        <TextInput style={styles.searchBar} placeholder="Rechercher un article..." />
-      </View>
+// 2. On crée le panier (vide au début : 0)
+const [nombreArticles, setNombreArticles] = useState(0);
 
-      {/* --- CONTENU DÉFILANT --- */}
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.grid}>
-          {produits.map(item => (
-            <View key={item.id} style={styles.card}>
-              <Text style={{fontSize: 50}}>{item.image}</Text>
-              <Text style={styles.prodName}>{item.nom}</Text>
-              <Text style={styles.prodPrice}>{item.prix} FCFA</Text>
-              <TouchableOpacity style={styles.buyBtn}>
-                <Text style={{color: 'white', fontWeight: 'bold'}}>Acheter</Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-
-      {/* --- BARRE DE NAVIGATION (Le secret du look "App") --- */}
-      <View style={styles.navBar}>
-        <NavButton icon="🏠" label="Accueil" active />
-        <NavButton icon="🛒" label="Panier" />
-        <NavButton icon="👤" label="Compte" />
-      </View>
-    </View>
-  );
-}
-
-// Composant pour les boutons du bas
-const NavButton = ({ icon, label, active }) => (
-  <TouchableOpacity style={styles.navItem}>
-    <Text style={{fontSize: 20, color: active ? '#ff9900' : '#888'}}>{icon}</Text>
-    <Text style={{fontSize: 10, color: active ? '#ff9900' : '#888'}}>{label}</Text>
-  </TouchableOpacity>
-);
-
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f0f0f0' },
-  header: { backgroundColor: '#ff9900', padding: 20, paddingTop: 50 },
-  logo: { color: 'white', fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
-  searchBar: { backgroundColor: 'white', borderRadius: 8, padding: 10 },
-  scrollContent: { padding: 10 },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
-  card: { backgroundColor: 'white', width: '48%', padding: 15, borderRadius: 10, marginBottom: 15, alignItems: 'center' },
-  prodName: { fontWeight: '600', marginTop: 10 },
-  prodPrice: { color: '#ff9900', fontWeight: 'bold', marginVertical: 5 },
-  buyBtn: { backgroundColor: '#333', paddingVertical: 8, paddingHorizontal: 20, borderRadius: 5 },
-  navBar: { height: 70, backgroundColor: 'white', flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#ddd', justifyContent: 'space-around', alignItems: 'center' },
-  navItem: { alignItems: 'center' }
-});
+// 3. La fonction pour ajouter un article
+const ajouterAuPanier = () => {
+  setNombreArticles(nombreArticles + 1);
+  alert("Article ajouté au panier !");
+};
