@@ -208,4 +208,55 @@
         <span class="text-[10px] font-bold text-gray-500">Compte</span>
     </a>
 
-</nav>
+</nav><div id="auth-section" class="bg-white p-3 mb-2 flex items-center justify-between border-b border-gray-100">
+    <div id="user-info" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+            <i class="fa-solid fa-user text-gray-400 text-sm"></i>
+        </div>
+        <span class="text-xs font-bold text-gray-600">Client non connecté</span>
+    </div>
+    <button onclick="openLogin()" id="login-btn" class="text-[10px] font-black text-orange-500 uppercase border border-orange-500 px-3 py-1 rounded">Se Connecter</button>
+</div>
+
+<div id="login-modal" class="fixed inset-0 bg-black/70 z-[600] hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-xs rounded-2xl p-6 shadow-2xl">
+        <h2 class="text-xl font-black mb-4 uppercase italic text-gray-800">Créer un compte</h2>
+        <div class="space-y-4">
+            <input type="text" id="reg-name" placeholder="Ton Nom complet" class="w-full p-3 bg-gray-50 rounded-lg outline-none border focus:border-orange-500 font-bold">
+            <input type="number" id="reg-phone" placeholder="Ton Numéro WhatsApp" class="w-full p-3 bg-gray-50 rounded-lg outline-none border focus:border-orange-500 font-bold">
+            <button onclick="saveUser()" class="w-full bg-orange-500 text-white py-3 rounded-xl font-black shadow-lg">COMMENCER LE SHOPPING</button>
+        </div>
+        <button onclick="closeLogin()" class="w-full mt-4 text-xs text-gray-400 font-bold uppercase">Annuler</button>
+    </div>
+</div>
+
+<script>
+    // SCRIPT POUR GÉRER LA CONNEXION
+    function openLogin() { document.getElementById('login-modal').classList.remove('hidden'); }
+    function closeLogin() { document.getElementById('login-modal').classList.add('hidden'); }
+
+    function saveUser() {
+        const name = document.getElementById('reg-name').value;
+        const phone = document.getElementById('reg-phone').value;
+
+        if(name && phone) {
+            // On enregistre dans la mémoire du téléphone du client
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userPhone', phone);
+            checkUser();
+            closeLogin();
+            alert("Compte créé avec succès ! Bienvenue chez Blakis Store.");
+        } else {
+            alert("Remplis toutes les cases, l'ancien !");
+        }
+    }
+
+    function checkUser() {
+        const savedName = localStorage.getItem('userName');
+        if(savedName) {
+            document.getElementById('user-info').innerHTML = `
+                <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white border-2 border-white shadow-sm">
+                    <i class="fa-solid fa-check text-[10px]"></i>
+                </div>
+                <span class="text-xs font-black text-gray-
+
