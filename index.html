@@ -60,4 +60,49 @@
     </div>
 
 </body>
-</html>
+</html><div id="settings-btn" onclick="toggleSettings()" style="position: fixed; top: 15px; right: 15px; background: #333; color: white; padding: 10px; border-radius: 50%; cursor: pointer; z-index: 1000; width: 30px; height: 30px; text-align: center; line-height: 30px;">
+    ⚙️
+</div>
+
+<div id="settings-panel" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; padding: 20px;">
+    <h2>Paramètres de la Boutique</h2>
+    <hr>
+    <p><strong>Nom :</strong> Mohamed Naziru (Blakis)</p>
+    <p><strong>Ville :</strong> Bondoukou</p>
+    <p><strong>Boutique :</strong> Vente de vêtements & accessoires</p>
+    <button onclick="location.reload()" style="background: #f68b1e; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-size: 1.1em;">
+        Actualiser la page maintenant
+    </button>
+    <br><br>
+    <button onclick="toggleSettings()" style="background: #ccc; border: none; padding: 10px; width: 100%; border-radius: 5px;">
+        Fermer
+    </button>
+</div>
+
+<script>
+    // Fonction pour ouvrir/fermer les paramètres
+    function toggleSettings() {
+        var panel = document.getElementById('settings-panel');
+        if (panel.style.display === "none") {
+            panel.style.display = "block";
+        } else {
+            panel.style.display = "none";
+        }
+    }
+
+    // Fonction d'actualisation par glissement (Simplifiée pour mobile)
+    let touchstartY = 0;
+    let touchendY = 0;
+    
+    document.addEventListener('touchstart', e => {
+        touchstartY = e.changedTouches[0].screenY;
+    });
+
+    document.addEventListener('touchend', e => {
+        touchendY = e.changedTouches[0].screenY;
+        if (touchendY > touchstartY + 150) { // Si on tire vers le bas de plus de 150px
+            location.reload(); // Actualise la page
+        }
+    });
+</script>
+
