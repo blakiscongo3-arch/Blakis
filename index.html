@@ -249,4 +249,127 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .page { display: none; }
+        .active { display: block; }
+        .tab-active { color: #f68b1e; border-top: 2px solid #f68b1e; }
+    </style>
+</head>
+<body class="bg-gray-100 pb-20">
+
+    <div id="page-auth" class="page active fixed inset-0 bg-white z-[100] p-6 flex flex-col justify-center">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-black text-[#f68b1e]">BLAKIS STORE</h1>
+            <p class="text-gray-500">Inscrivez-vous pour accéder aux ventes</p>
+        </div>
+        <input type="text" id="client-nom" placeholder="Votre Nom complet" class="w-full p-4 border-2 rounded-xl mb-4 focus:border-orange-500 outline-none">
+        <input type="tel" id="client-tel" placeholder="Numéro de téléphone" class="w-full p-4 border-2 rounded-xl mb-6 focus:border-orange-500 outline-none">
+        <button onclick="creerCompte()" class="w-full bg-[#f68b1e] text-white font-bold p-4 rounded-xl shadow-lg active:scale-95 transition">
+            CRÉER MON COMPTE
+        </button>
+    </div>
+
+    <header id="main-header" class="hidden bg-[#f68b1e] p-4 sticky top-0 z-50 flex items-center justify-between shadow-md">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-bars text-white text-xl"></i>
+            <span class="text-white font-bold italic text-lg">JUMIA <small class="text-[10px]">CI</small></span>
+        </div>
+        <div class="bg-white/20 p-2 rounded-full px-4 flex-1 mx-4">
+            <i class="fa-solid fa-magnifying-glass text-white/70"></i>
+            <span class="text-white/70 text-sm ml-2">Rechercher...</span>
+        </div>
+        <i class="fa-solid fa-cart-shopping text-white text-xl"></i>
+    </header>
+
+    <main id="page-home" class="page p-3">
+        <div class="bg-red-600 text-white p-2 rounded flex justify-between items-center mb-4 text-xs font-bold">
+            <span>⚡ VENTES FLASH</span>
+            <span id="timer">05h : 42m : 10s</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+            <div class="bg-white rounded p-2 shadow-sm">
+                <div class="relative">
+                    <img src="https://m.media-amazon.com/images/I/61l9ppRIiqL._AC_SL1500_.jpg" class="w-full h-32 object-contain bg-gray-50">
+                    <span class="absolute top-0 left-0 bg-orange-100 text-orange-600 text-[10px] font-bold p-1">-25%</span>
+                </div>
+                <h3 class="text-xs mt-2 truncate">iPhone 13 Pro Max Gold</h3>
+                <p class="font-bold text-sm">450 000 F</p>
+                <p class="text-[10px] text-gray-400 line-through">600 000 F</p>
+                <button onclick="ajouter()" class="w-full bg-[#f68b1e] text-white text-[10px] font-bold py-2 mt-2 rounded uppercase">Ajouter</button>
+            </div>
+            <div class="bg-white rounded p-2 shadow-sm">
+                <div class="relative">
+                    <img src="https://m.media-amazon.com/images/I/71YfT8O25HL._AC_SL1500_.jpg" class="w-full h-32 object-contain bg-gray-50">
+                    <span class="absolute top-0 left-0 bg-orange-100 text-orange-600 text-[10px] font-bold p-1">-40%</span>
+                </div>
+                <h3 class="text-xs mt-2 truncate">Airpods Pro Luxe</h3>
+                <p class="font-bold text-sm">12 000 F</p>
+                <p class="text-[10px] text-gray-400 line-through">20 000 F</p>
+                <button onclick="ajouter()" class="w-full bg-[#f68b1e] text-white text-[10px] font-bold py-2 mt-2 rounded uppercase">Ajouter</button>
+            </div>
+        </div>
+    </main>
+
+    <main id="page-settings" class="page p-4">
+        <div class="bg-white p-6 rounded-2xl shadow-sm mb-6 flex items-center gap-4">
+            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center text-[#f68b1e] text-2xl font-bold" id="user-initial">M</div>
+            <div>
+                <h2 class="font-bold text-xl" id="display-name">Utilisateur</h2>
+                <p class="text-gray-400 text-sm" id="display-phone">+225 00000000</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div class="p-4 border-b flex justify-between items-center"><span><i class="fa-solid fa-box mr-3 text-gray-400"></i> Mes commandes</span> <i class="fa-solid fa-chevron-right text-gray-300"></i></div>
+            <div class="p-4 border-b flex justify-between items-center"><span><i class="fa-solid fa-location-dot mr-3 text-gray-400"></i> Adresse de livraison</span> <i class="fa-solid fa-chevron-right text-gray-300"></i></div>
+            <div onclick="location.reload()" class="p-4 text-red-500 font-bold flex items-center"><i class="fa-solid fa-right-from-bracket mr-3"></i> Déconnexion</div>
+        </div>
+    </main>
+
+    <nav id="bottom-nav" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-2 z-50">
+        <button onclick="navigation('page-home')" class="nav-btn tab-active flex flex-col items-center gap-1">
+            <i class="fa-solid fa-house text-lg"></i><span class="text-[10px]">Accueil</span>
+        </button>
+        <button onclick="navigation('page-settings')" class="nav-btn text-gray-400 flex flex-col items-center gap-1">
+            <i class="fa-solid fa-user text-lg"></i><span class="text-[10px]">Compte</span>
+        </button>
+    </nav>
+
+    <script>
+        function creerCompte() {
+            let nom = document.getElementById('client-nom').value;
+            let tel = document.getElementById('client-tel').value;
+            if(nom.length < 3) { alert("Nom trop court !"); return; }
+            
+            // On enregistre les infos
+            document.getElementById('display-name').innerText = nom;
+            document.getElementById('display-phone').innerText = tel;
+            document.getElementById('user-initial').innerText = nom[0].toUpperCase();
+            
+            // On cache l'auth et on montre le reste
+            document.getElementById('page-auth').classList.remove('active');
+            document.getElementById('main-header').classList.remove('hidden');
+            document.getElementById('bottom-nav').classList.remove('hidden');
+            document.getElementById('page-home').classList.add('active');
+        }
+
+        function navigation(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('tab-active', 'text-[#f68b1e]'));
+            event.currentTarget.classList.add('tab-active');
+        }
+
+        function ajouter() { alert("Article ajouté au panier !"); }
+    </script>
+</body>
+</html>
 
