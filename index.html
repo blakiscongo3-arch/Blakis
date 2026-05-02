@@ -1,80 +1,68 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Amazon - Blakis Elec</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { font-family: 'Arial', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .page { display: none; }
-        .active { display: block; }
-        .amazon-dark { background-color: #232f3e; }
-        .amazon-yellow { background-color: #febd69; }
-        .amazon-btn { background-color: #ffd814; border-color: #fcd200; }
-    </style>
-</head>
-<body class="bg-gray-200 pb-20">
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 
-    <div id="p-auth" class="page active h-screen bg-white p-6 flex flex-col items-center">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png" class="w-24 mt-10 mb-10">
-        <div class="w-full border p-6 rounded shadow-sm">
-            <h2 class="text-2xl font-normal mb-4">Créer un compte</h2>
-            <label class="text-xs font-bold mb-1 block">Votre nom</label>
-            <input type="text" id="user-name" class="w-full border p-2 rounded mb-4 outline-none focus:border-orange-400 shadow-inner">
-            <button onclick="entrer()" class="w-full amazon-btn py-2 rounded shadow text-sm">Continuer</button>
-            <p class="text-[10px] text-gray-500 mt-4">En créant un compte, vous acceptez les conditions de vente de Blakis Elec.</p>
-        </div>
-    </div>
+export default function App() {
+  // On simule une petite base de données de ta boutique
+  const [produits] = useState([
+    { id: 1, nom: "Chaussures Sport", prix: 15000, image: "👟" },
+    { id: 2, nom: "T-shirt Premium", prix: 5000, image: "👕" },
+    { id: 3, nom: "Montre Luxe", prix: 25000, image: "⌚" },
+    { id: 4, nom: "Casquette Stylée", prix: 3500, image: "🧢" },
+  ]);
 
-    <header id="main-header" class="hidden">
-        <div class="amazon-dark p-3 flex items-center justify-between">
-            <img src="https://white.logodownload.org/wp-content/uploads/2020/11/amazon-white-logo-0.png" class="w-20">
-            <div class="text-white text-xs flex items-center gap-1">
-                <span id="user-display">Client</span> <i class="fa-solid fa-chevron-right text-[8px]"></i>
-                <i class="fa-solid fa-user text-lg ml-2"></i>
-            </div>
-        </div>
-        <div class="amazon-dark px-3 pb-3">
-            <div class="bg-white rounded flex items-center p-2 shadow-inner">
-                <input type="text" placeholder="Chercher un outil..." class="w-full text-sm outline-none px-2">
-                <div class="amazon-yellow p-2 rounded -mr-1">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-            </div>
-        </div>
-        <div class="bg-[#37475a] p-2 overflow-x-auto whitespace-nowrap text-white text-xs flex gap-4">
-            <span>Câblage</span><span>Éclairage</span><span>Outillage</span><span>Disjoncteurs</span><span>Promos</span>
-        </div>
-        <div class="bg-[#f3f3f3] p-2 flex items-center gap-2 text-xs border-b border-gray-300">
-            <i class="fa-solid fa-location-dot"></i> <span>Livrer à Bondoukou</span>
-        </div>
-    </header>
+  return (
+    <View style={styles.container}>
+      {/* --- EN-TÊTE (Comme Jumia) --- */}
+      <View style={styles.header}>
+        <Text style={styles.logo}>MA BOUTIQUE</Text>
+        <TextInput style={styles.searchBar} placeholder="Rechercher un article..." />
+      </View>
 
-    <main id="home" class="page p-2">
-        <div class="grid grid-cols-2 gap-2" id="grid-products">
-            </div>
-    </main>
+      {/* --- CONTENU DÉFILANT --- */}
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.grid}>
+          {produits.map(item => (
+            <View key={item.id} style={styles.card}>
+              <Text style={{fontSize: 50}}>{item.image}</Text>
+              <Text style={styles.prodName}>{item.nom}</Text>
+              <Text style={styles.prodPrice}>{item.prix} FCFA</Text>
+              <TouchableOpacity style={styles.buyBtn}>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>Acheter</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
 
-    <main id="cart" class="page p-4 bg-white min-h-screen">
-        <h2 class="text-xl font-bold mb-4">Votre panier</h2>
-        <div id="cart-list" class="space-y-4"></div>
-        <div class="mt-6 border-t pt-4">
-            <p class="text-lg">Sous-total : <span class="font-bold" id="total-val">0 F</span></p>
-            <button onclick="finaliser()" class="w-full amazon-btn py-3 rounded-lg font-bold mt-4 shadow">Passer la commande</button>
-        </div>
-    </main>
+      {/* --- BARRE DE NAVIGATION (Le secret du look "App") --- */}
+      <View style={styles.navBar}>
+        <NavButton icon="🏠" label="Accueil" active />
+        <NavButton icon="🛒" label="Panier" />
+        <NavButton icon="👤" label="Compte" />
+      </View>
+    </View>
+  );
+}
 
-    <nav id="bottom-nav" class="hidden fixed bottom-0 w-full bg-white border-t flex justify-around p-3 z-50">
-        <button onclick="nav('home')" class="flex flex-col items-center"><i class="fa-solid fa-house text-xl"></i></button>
-        <button onclick="nav('cart')" class="flex flex-col items-center relative">
-            <i class="fa-solid fa-cart-shopping text-xl"></i>
-            <span id="badge" class="absolute -top-2 -right-2 bg-white text-orange-700 text-xs font-bold rounded-full h-5 w-5 border border-orange-700 flex items-center justify-center">0</span>
-        </button>
-    </nav>
+// Composant pour les boutons du bas
+const NavButton = ({ icon, label, active }) => (
+  <TouchableOpacity style={styles.navItem}>
+    <Text style={{fontSize: 20, color: active ? '#ff9900' : '#888'}}>{icon}</Text>
+    <Text style={{fontSize: 10, color: active ? '#ff9900' : '#888'}}>{label}</Text>
+  </TouchableOpacity>
+);
 
-    <script>
-        const store = [
-            { id: 1, n: "Câble VVG 1.5mm", p: 18000, i: "https://m.media-amazon.com/images/I/61Nl8Rk-2+L._AC_SL1500_.jpg" },
-            { id: 2, n: "Câble VVG 2.5mm", p: 27500, i: "
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#f0f0f0' },
+  header: { backgroundColor: '#ff9900', padding: 20, paddingTop: 50 },
+  logo: { color: 'white', fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
+  searchBar: { backgroundColor: 'white', borderRadius: 8, padding: 10 },
+  scrollContent: { padding: 10 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  card: { backgroundColor: 'white', width: '48%', padding: 15, borderRadius: 10, marginBottom: 15, alignItems: 'center' },
+  prodName: { fontWeight: '600', marginTop: 10 },
+  prodPrice: { color: '#ff9900', fontWeight: 'bold', marginVertical: 5 },
+  buyBtn: { backgroundColor: '#333', paddingVertical: 8, paddingHorizontal: 20, borderRadius: 5 },
+  navBar: { height: 70, backgroundColor: 'white', flexDirection: 'row', borderTopWidth: 1, borderTopColor: '#ddd', justifyContent: 'space-around', alignItems: 'center' },
+  navItem: { alignItems: 'center' }
+});
