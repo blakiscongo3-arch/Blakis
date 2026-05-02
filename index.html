@@ -1,99 +1,58 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blakis Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .page { display: none; }
-        .page.active { display: block; }
-        .nav-item.active { color: #f68b1e; }
+        .section { display: none; }
+        .active { display: block; }
     </style>
 </head>
-<body class="bg-gray-100 pb-20">
+<body class="bg-gray-100">
 
-    <header class="bg-[#f68b1e] p-4 sticky top-0 z-50 shadow-md">
-        <div class="flex items-center justify-between">
-            <h1 class="text-white text-xl font-bold italic">BLAKIS STORE</h1>
-            <div class="relative">
-                <i class="fa-solid fa-cart-shopping text-white text-2xl"></i>
-                <span class="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-            </div>
+    <div id="p-accueil" class="section active p-4">
+        <h1 class="text-[#f68b1e] text-2xl font-bold">ACCUEIL BLAKIS</h1>
+        <div class="mt-4 p-6 bg-white rounded shadow text-center">
+            <p>Bienvenue dans ton magasin !</p>
+            <p class="text-orange-500 font-bold mt-2">Clique sur les icônes en bas pour tester.</p>
         </div>
-    </header>
+    </div>
 
-    <main id="home" class="page active p-4">
-        <div class="bg-white rounded-lg p-4 mb-4 shadow-sm border-l-4 border-orange-500">
-            <h2 class="font-bold text-red-600">⚡ VENTES FLASH</h2>
-            <p class="text-sm text-gray-500">Fin dans : 05h 12m 30s</p>
+    <div id="p-panier" class="section p-4 text-center">
+        <h1 class="text-2xl font-bold">MON PANIER</h1>
+        <p class="mt-10 text-gray-500">Votre panier est vide.</p>
+    </div>
+
+    <div id="p-compte" class="section p-4">
+        <h1 class="text-2xl font-bold">MON COMPTE</h1>
+        <div class="mt-4 bg-white p-4 rounded shadow">
+            <p>Connectez-vous pour voir vos commandes.</p>
         </div>
+    </div>
 
-        <div class="grid grid-cols-2 gap-3">
-            <div class="bg-white p-2 rounded-lg shadow-sm">
-                <img src="https://via.placeholder.com/150" class="w-full h-32 object-cover rounded">
-                <h3 class="text-sm mt-2">Chaussure Sport Pro</h3>
-                <p class="font-bold text-[#f68b1e]">15.000 FCFA</p>
-                <button class="w-full bg-[#f68b1e] text-white text-xs py-2 mt-2 rounded">AJOUTER</button>
-            </div>
-            <div class="bg-white p-2 rounded-lg shadow-sm">
-                <img src="https://via.placeholder.com/150" class="w-full h-32 object-cover rounded">
-                <h3 class="text-sm mt-2">T-shirt Premium</h3>
-                <p class="font-bold text-[#f68b1e]">5.000 FCFA</p>
-                <button class="w-full bg-[#f68b1e] text-white text-xs py-2 mt-2 rounded">AJOUTER</button>
-            </div>
-        </div>
-    </main>
-
-    <main id="cart" class="page p-10 text-center">
-        <i class="fa-solid fa-basket-shopping text-6xl text-gray-300"></i>
-        <p class="mt-4 text-gray-500">Votre panier est vide pour le moment.</p>
-        <button onclick="showPage('home')" class="mt-6 bg-[#f68b1e] text-white px-6 py-2 rounded-lg">Acheter maintenant</button>
-    </main>
-
-    <main id="account" class="page p-6">
-        <h2 class="text-2xl font-bold mb-6">Mon Profil</h2>
-        <div class="space-y-4">
-            <button class="w-full text-left p-4 bg-white rounded-lg shadow-sm flex items-center justify-between">
-                <span>Mes commandes</span> <i class="fa-solid fa-chevron-right"></i>
-            </button>
-            <button class="w-full text-left p-4 bg-white rounded-lg shadow-sm flex items-center justify-between">
-                <span>Mon adresse</span> <i class="fa-solid fa-chevron-right"></i>
-            </button>
-            <button class="w-full text-left p-4 bg-white rounded-lg shadow-sm text-red-500 font-bold">Déconnexion</button>
-        </div>
-    </main>
-
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around p-2 z-50">
-        <button onclick="showPage('home')" class="nav-item active flex flex-col items-center text-xs">
-            <i class="fa-solid fa-house text-lg"></i>
-            <span>Accueil</span>
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-3">
+        <button onclick="changerPage('p-accueil')" class="flex flex-col items-center">
+            <i class="fa-solid fa-house text-orange-500"></i>
+            <span class="text-xs">Accueil</span>
         </button>
-        <button onclick="showPage('cart')" class="nav-item flex flex-col items-center text-xs text-gray-400">
-            <i class="fa-solid fa-cart-shopping text-lg"></i>
-            <span>Panier</span>
+        <button onclick="changerPage('p-panier')" class="flex flex-col items-center">
+            <i class="fa-solid fa-cart-shopping text-gray-400"></i>
+            <span class="text-xs">Panier</span>
         </button>
-        <button onclick="showPage('account')" class="nav-item flex flex-col items-center text-xs text-gray-400">
-            <i class="fa-solid fa-user text-lg"></i>
-            <span>Compte</span>
+        <button onclick="changerPage('p-compte')" class="flex flex-col items-center">
+            <i class="fa-solid fa-user text-gray-400"></i>
+            <span class="text-xs">Compte</span>
         </button>
     </nav>
 
     <script>
-        function showPage(pageId) {
-            // Cacher toutes les pages
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Afficher la page choisie
-            document.getElementById(pageId).classList.add('active');
-            
-            // Gérer la couleur des icônes du menu
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active', 'text-[#f68b1e]');
-                item.classList.add('text-gray-400');
-            });
-            event.currentTarget.classList.add('active', 'text-[#f68b1e]');
-            event.currentTarget.classList.remove('text-gray-400');
+        function changerPage(id) {
+            // Cache toutes les sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            // Affiche celle qu'on a cliquée
+            document.getElementById(id).classList.add('active');
         }
     </script>
 </body>
