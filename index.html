@@ -3,101 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jumia Clone Pro</title>
+    <title>Molo Molo Style - Blakis Pay</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: sans-serif; -webkit-tap-highlight-color: transparent; }
-        .page { display: none; height: 100vh; overflow-y: auto; }
-        .active { display: block; }
-        .jumia-orange { color: #f68b1e; }
-        .bg-jumia { background-color: #f68b1e; }
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .page { display: none; transition: all 0.3s ease; }
+        .active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .molo-gradient { background: linear-gradient(135deg, #0052FF 0%, #0035A5 100%); }
+        .molo-card { border-radius: 24px; }
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-[#F8FAFF]">
 
-    <div id="auth-page" class="page active bg-white p-6 flex flex-col justify-center">
-        <div class="text-center mb-8">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Jumia_Logo.png/1200px-Jumia_Logo.png" class="w-32 mx-auto mb-4">
-            <h2 class="text-xl font-bold">Bienvenue chez Blakis Store</h2>
-            <p class="text-gray-500 text-sm">Inscrivez-vous pour continuer</p>
+    <div id="auth" class="page active h-screen bg-white p-8 flex flex-col justify-between">
+        <div class="mt-12">
+            <div class="w-16 h-16 molo-gradient rounded-2xl flex items-center justify-center shadow-lg mb-6">
+                <i class="fa-solid fa-wallet text-white text-3xl"></i>
+            </div>
+            <h1 class="text-3xl font-black text-slate-900 leading-tight">Payez tout<br><span class="text-blue-600">Molo Molo.</span></h1>
+            <p class="text-slate-500 mt-4">La nouvelle façon de gérer votre argent à Bondoukou.</p>
         </div>
-        <div class="space-y-4">
-            <input type="text" id="reg-name" placeholder="Nom complet" class="w-full p-4 border rounded-lg outline-none focus:border-orange-500">
-            <input type="tel" id="reg-phone" placeholder="Numéro de téléphone" class="w-full p-4 border rounded-lg outline-none focus:border-orange-500">
-            <button onclick="login()" class="w-full bg-jumia text-white font-bold p-4 rounded-lg shadow-lg">CRÉER MON COMPTE</button>
+
+        <div class="space-y-4 mb-8">
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <label class="text-[10px] font-bold text-slate-400 uppercase">Nom complet</label>
+                <input type="text" id="nom" placeholder="Mohamed Naziru" class="w-full bg-transparent outline-none font-semibold text-slate-800">
+            </div>
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <label class="text-[10px] font-bold text-slate-400 uppercase">Numéro de téléphone</label>
+                <input type="tel" id="tel" placeholder="07 00 00 00 00" class="w-full bg-transparent outline-none font-semibold text-slate-800">
+            </div>
+            <button onclick="valider()" class="w-full molo-gradient text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-200">COMMENCER</button>
         </div>
     </div>
 
-    <header id="main-nav" class="hidden fixed top-0 w-full bg-jumia p-3 flex items-center justify-between z-50">
-        <i class="fa-solid fa-bars text-white text-xl"></i>
-        <div class="flex-1 mx-3 bg-white rounded flex items-center p-2">
-            <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2"></i>
-            <input type="text" placeholder="Chercher sur Jumia" class="w-full text-sm outline-none">
-        </div>
-        <div class="relative">
-            <i class="fa-solid fa-cart-shopping text-white text-xl"></i>
-            <span class="absolute -top-2 -right-2 bg-black text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center">0</span>
-        </div>
-    </header>
-
-    <div id="home-page" class="page pt-16 pb-20">
-        <div class="p-3">
-            <div class="bg-blue-600 h-32 rounded-lg flex items-center justify-center text-white font-bold">PROMO DE LA SEMAINE</div>
-        </div>
-        <div class="bg-white m-3 rounded shadow-sm">
-            <div class="bg-red-600 text-white p-2 flex justify-between text-xs font-bold rounded-t">
-                <span>⚡ VENTES FLASH</span>
-                <span>VOIR TOUT ></span>
+    <div id="home" class="page">
+        <div class="p-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold" id="avatar">N</div>
+                <p class="font-bold text-slate-800">Salut, <span id="user">Blakis</span></p>
             </div>
-            <div class="flex overflow-x-auto p-3 gap-4">
-                <div class="min-w-[120px] text-center">
-                    <img src="https://m.media-amazon.com/images/I/71YfT8O25HL._AC_SL1500_.jpg" class="h-20 mx-auto">
-                    <p class="text-xs mt-1 truncate">Airpods Pro</p>
-                    <p class="font-bold text-sm">15.000 F</p>
+            <i class="fa-solid fa-bell text-slate-300 text-xl"></i>
+        </div>
+
+        <div class="mx-6 molo-gradient p-6 molo-card text-white shadow-2xl shadow-blue-300 relative overflow-hidden">
+            <p class="text-white/70 text-sm">Mon Solde</p>
+            <h2 class="text-3xl font-black mt-1">45.000 <small class="text-sm">FCFA</small></h2>
+            <div class="mt-8 flex gap-3">
+                <button class="bg-white/20 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2"><i class="fa-solid fa-plus"></i> Recharger</button>
+                <button class="bg-white/20 px-4 py-2 rounded-xl text-xs font-bold">Retrait</button>
+            </div>
+            <i class="fa-solid fa-shield-halved absolute -right-4 -bottom-4 text-white/10 text-8xl"></i>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4 p-6 mt-4">
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-blue-600"><i class="fa-solid fa-paper-plane"></i></div>
+                <span class="text-[10px] font-bold text-slate-500">Envoyer</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-green-500"><i class="fa-solid fa-qrcode"></i></div>
+                <span class="text-[10px] font-bold text-slate-500">Scanner</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-orange-500"><i class="fa-solid fa-bolt"></i></div>
+                <span class="text-[10px] font-bold text-slate-500">Crédit</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+                <div class="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center text-purple-500"><i class="fa-solid fa-tv"></i></div>
+                <span class="text-[10px] font-bold text-slate-500">Canal+</span>
+            </div>
+        </div>
+
+        <div class="px-6 pb-24">
+            <h3 class="font-bold text-slate-800 mb-4">Activités récentes</h3>
+            <div class="bg-white p-4 rounded-2xl shadow-sm flex items-center justify-between mb-3">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600"><i class="fa-solid fa-shop"></i></div>
+                    <div><p class="font-bold text-sm">Blakis Boutique</p><p class="text-[10px] text-slate-400">Hier, 14:20</p></div>
                 </div>
-                <div class="min-w-[120px] text-center">
-                    <img src="https://m.media-amazon.com/images/I/61l9ppRIiqL._AC_SL1500_.jpg" class="h-20 mx-auto">
-                    <p class="text-xs mt-1 truncate">iPhone 13</p>
-                    <p class="font-bold text-sm">450.000 F</p>
-                </div>
+                <p class="text-red-500 font-bold text-sm">-12.000 F</p>
             </div>
         </div>
     </div>
 
-    <div id="account-page" class="page pt-16 pb-20 bg-gray-50">
-        <div class="bg-white p-6 mb-4">
-            <h2 class="text-gray-500 uppercase text-xs font-bold mb-4">Informations personnelles</h2>
-            <div class="flex items-center gap-4">
-                <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-xl font-bold" id="user-icon">?</div>
-                <div>
-                    <p class="font-bold" id="user-name-display">Utilisateur</p>
-                    <p class="text-gray-500 text-sm" id="user-phone-display">+225 ...</p>
-                </div>
-            </div>
-        </div>
-        <div class="bg-white space-y-1">
-            <div class="p-4 border-b flex justify-between"><span><i class="fa-solid fa-box mr-3"></i> Commandes</span> <i class="fa-solid fa-chevron-right text-gray-300"></i></div>
-            <div class="p-4 border-b flex justify-between"><span><i class="fa-solid fa-envelope mr-3"></i> Messages</span> <i class="fa-solid fa-chevron-right text-gray-300"></i></div>
-            <div onclick="location.reload()" class="p-4 text-red-500 font-bold border-b">DÉCONNEXION</div>
-        </div>
-    </div>
-
-    <nav id="bottom-bar" class="hidden fixed bottom-0 w-full bg-white border-t flex justify-around p-2 z-50">
-        <button onclick="showPage('home-page')" class="flex flex-col items-center text-orange-500">
-            <i class="fa-solid fa-house text-lg"></i><span class="text-[10px]">Accueil</span>
-        </button>
-        <button onclick="showPage('account-page')" class="flex flex-col items-center text-gray-400">
-            <i class="fa-solid fa-user text-lg"></i><span class="text-[10px]">Compte</span>
-        </button>
+    <nav id="nav-bar" class="hidden fixed bottom-0 w-full bg-white border-t border-slate-100 flex justify-around p-4 z-50">
+        <button onclick="show('home')" class="text-blue-600 flex flex-col items-center"><i class="fa-solid fa-house"></i><span class="text-[10px] font-bold">Accueil</span></button>
+        <button class="text-slate-300 flex flex-col items-center"><i class="fa-solid fa-chart-pie"></i><span class="text-[10px] font-bold">Budget</span></button>
+        <button class="text-slate-300 flex flex-col items-center"><i class="fa-solid fa-user"></i><span class="text-[10px] font-bold">Profil</span></button>
     </nav>
 
     <script>
-        function login() {
-            const name = document.getElementById('reg-name').value;
-            const phone = document.getElementById('reg-phone').value;
-            if(name.length < 2) { alert("Nom invalide"); return; }
+        function valider() {
+            const n = document.getElementById('nom').value;
+            if(n.length < 2) { alert("Entre ton nom !"); return; }
+            document.getElementById('user').innerText = n;
+            document.getElementById('avatar').innerText = n[0].toUpperCase();
             
-            // Stockage et affichage
-            document.getElementById('user-name-display').innerText = name;
-            document.getElementById('user
+            document.getElementById('auth').classList.remove('active');
+            document.getElementById('home').classList.add('active');
+            document.getElementById('nav-bar').classList.remove('hidden');
+        }
+        function show(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>
