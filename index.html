@@ -3,112 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLAKIS STORE | OFFICIEL</title>
+    <title>Blakis Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
-        body { font-family: 'Roboto', sans-serif; background-color: #f1f1f2; }
-        .active-tab { color: #f68b1e !important; border-top: 3px solid #f68b1e; }
-        .page-content { display: none; }
-        .page-active { display: block; }
-        .jumia-shadow { box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .page { display: none; }
+        .page.active { display: block; }
+        .nav-item.active { color: #f68b1e; }
     </style>
 </head>
-<body class="pb-20">
+<body class="bg-gray-100 pb-20">
 
-    <header class="bg-[#f68b1e] text-white p-4 sticky top-0 z-50 jumia-shadow">
-        <div class="flex justify-between items-center">
-            <h1 class="text-xl font-black italic tracking-tighter text-white">BLAKIS STORE</h1>
+    <header class="bg-[#f68b1e] p-4 sticky top-0 z-50 shadow-md">
+        <div class="flex items-center justify-between">
+            <h1 class="text-white text-xl font-bold italic">BLAKIS STORE</h1>
             <div class="relative">
-                <i class="fas fa-shopping-cart text-xl"></i>
-                <span class="absolute -top-2 -right-2 bg-black text-white text-[10px] rounded-full px-1.5 font-bold">0</span>
+                <i class="fa-solid fa-cart-shopping text-white text-2xl"></i>
+                <span class="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
             </div>
-        </div>
-        <div class="mt-3 relative">
-            <input type="text" placeholder="Chercher un produit, une marque..." class="w-full p-2 pl-10 rounded text-black text-sm outline-none">
-            <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
         </div>
     </header>
 
-    <div id="home" class="page-content page-active">
-        <div class="bg-red-600 text-white p-2 flex justify-between items-center animate-pulse">
-            <span class="font-bold text-sm"><i class="fas fa-bolt mr-2"></i>VENTES FLASH</span>
-            <span id="timer" class="font-mono font-bold text-sm text-yellow-300">00h : 00m : 00s</span>
+    <main id="home" class="page active p-4">
+        <div class="bg-white rounded-lg p-4 mb-4 shadow-sm border-l-4 border-orange-500">
+            <h2 class="font-bold text-red-600">⚡ VENTES FLASH</h2>
+            <p class="text-sm text-gray-500">Fin dans : 05h 12m 30s</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-2 p-2">
-            <div class="bg-white p-2 rounded jumia-shadow relative">
-                <span class="absolute top-2 left-2 bg-orange-100 text-[#f68b1e] text-[10px] font-bold px-1 rounded">-45%</span>
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" class="w-full h-32 object-contain mb-2">
-                <h3 class="text-xs text-gray-700 truncate">Basket Sport Pro - Edition Blakis</h3>
-                <p class="text-sm font-bold">12 500 FCFA</p>
-                <p class="text-[10px] text-gray-400 line-through">22 000 FCFA</p>
-                <button class="w-full bg-[#f68b1e] text-white py-1.5 mt-2 rounded-sm text-xs font-bold uppercase">Ajouter</button>
+        <div class="grid grid-cols-2 gap-3">
+            <div class="bg-white p-2 rounded-lg shadow-sm">
+                <img src="https://via.placeholder.com/150" class="w-full h-32 object-cover rounded">
+                <h3 class="text-sm mt-2">Chaussure Sport Pro</h3>
+                <p class="font-bold text-[#f68b1e]">15.000 FCFA</p>
+                <button class="w-full bg-[#f68b1e] text-white text-xs py-2 mt-2 rounded">AJOUTER</button>
             </div>
-            <div class="bg-white p-2 rounded jumia-shadow relative">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" class="w-full h-32 object-contain mb-2">
-                <h3 class="text-xs text-gray-700 truncate">Montre Luxe Connectée</h3>
-                <p class="text-sm font-bold">8 000 FCFA</p>
-                <button class="w-full bg-[#f68b1e] text-white py-1.5 mt-2 rounded-sm text-xs font-bold uppercase">Ajouter</button>
+            <div class="bg-white p-2 rounded-lg shadow-sm">
+                <img src="https://via.placeholder.com/150" class="w-full h-32 object-cover rounded">
+                <h3 class="text-sm mt-2">T-shirt Premium</h3>
+                <p class="font-bold text-[#f68b1e]">5.000 FCFA</p>
+                <button class="w-full bg-[#f68b1e] text-white text-xs py-2 mt-2 rounded">AJOUTER</button>
             </div>
-            </div>
-    </div>
-
-    <div id="cart" class="page-content p-4 text-center">
-        <i class="fas fa-shopping-basket text-6xl text-gray-200 mt-20"></i>
-        <h2 class="text-xl font-bold mt-4">Votre panier est vide !</h2>
-        <p class="text-gray-500 text-sm mt-2">Parcourez nos catégories et découvrez nos meilleures offres !</p>
-        <button onclick="showPage('home')" class="bg-[#f68b1e] text-white px-8 py-3 mt-6 rounded font-bold shadow-lg">COMMENCER VOS ACHATS</button>
-    </div>
-
-    <div id="account" class="page-content">
-        <div class="bg-white p-6 border-b border-gray-200 text-center">
-            <div class="w-20 h-20 bg-gray-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <i class="fas fa-user text-3xl text-gray-400"></i>
-            </div>
-            <h2 class="font-bold text-lg">Bienvenue sur Blakis Store</h2>
-            <p class="text-gray-500 text-xs">Connectez-vous pour gérer vos commandes</p>
         </div>
-        <div class="p-4">
-            <button class="w-full bg-[#f68b1e] text-white py-3 rounded font-bold shadow-md mb-4">SE CONNECTER</button>
-            <button class="w-full border border-[#f68b1e] text-[#f68b1e] py-3 rounded font-bold">CRÉER UN COMPTE</button>
-        </div>
-        <div class="bg-white mt-4">
-            <div class="p-4 border-b flex items-center"><i class="fas fa-box mr-4 text-gray-400"></i> Mes Commandes</div>
-            <div class="p-4 border-b flex items-center"><i class="fas fa-heart mr-4 text-gray-400"></i> Mes Favoris</div>
-            <div class="p-4 border-b flex items-center"><i class="fas fa-headset mr-4 text-gray-400"></i> Service Client</div>
-        </div>
-    </div>
+    </main>
 
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around items-center h-16 z-50 jumia-shadow">
-        <button onclick="showPage('home')" id="tab-home" class="flex flex-col items-center text-gray-500 flex-1 active-tab h-full justify-center">
-            <i class="fas fa-home text-xl"></i>
-            <span class="text-[10px] mt-1 font-bold">Accueil</span>
+    <main id="cart" class="page p-10 text-center">
+        <i class="fa-solid fa-basket-shopping text-6xl text-gray-300"></i>
+        <p class="mt-4 text-gray-500">Votre panier est vide pour le moment.</p>
+        <button onclick="showPage('home')" class="mt-6 bg-[#f68b1e] text-white px-6 py-2 rounded-lg">Acheter maintenant</button>
+    </main>
+
+    <main id="account" class="page p-6">
+        <h2 class="text-2xl font-bold mb-6">Mon Profil</h2>
+        <div class="space-y-4">
+            <button class="w-full text-left p-4 bg-white rounded-lg shadow-sm flex items-center justify-between">
+                <span>Mes commandes</span> <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <button class="w-full text-left p-4 bg-white rounded-lg shadow-sm flex items-center justify-between">
+                <span>Mon adresse</span> <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <button class="w-full text-left p-4 bg-white rounded-lg shadow-sm text-red-500 font-bold">Déconnexion</button>
+        </div>
+    </main>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around p-2 z-50">
+        <button onclick="showPage('home')" class="nav-item active flex flex-col items-center text-xs">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span>Accueil</span>
         </button>
-        <button onclick="showPage('categories')" id="tab-categories" class="flex flex-col items-center text-gray-500 flex-1 h-full justify-center">
-            <i class="fas fa-list text-xl"></i>
-            <span class="text-[10px] mt-1 font-bold">Catégories</span>
+        <button onclick="showPage('cart')" class="nav-item flex flex-col items-center text-xs text-gray-400">
+            <i class="fa-solid fa-cart-shopping text-lg"></i>
+            <span>Panier</span>
         </button>
-        <button onclick="showPage('cart')" id="tab-cart" class="flex flex-col items-center text-gray-500 flex-1 h-full justify-center">
-            <i class="fas fa-shopping-cart text-xl"></i>
-            <span class="text-[10px] mt-1 font-bold">Panier</span>
-        </button>
-        <button onclick="showPage('account')" id="tab-account" class="flex flex-col items-center text-gray-500 flex-1 h-full justify-center">
-            <i class="fas fa-user text-xl"></i>
-            <span class="text-[10px] mt-1 font-bold">Compte</span>
+        <button onclick="showPage('account')" class="nav-item flex flex-col items-center text-xs text-gray-400">
+            <i class="fa-solid fa-user text-lg"></i>
+            <span>Compte</span>
         </button>
     </nav>
 
     <script>
-        // Fonction pour changer de page sans recharger
         function showPage(pageId) {
             // Cacher toutes les pages
-            document.querySelectorAll('.page-content').forEach(p => p.classList.remove('page-active'));
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             // Afficher la page choisie
-            document.getElementById(pageId).classList.add('page-active');
+            document.getElementById(pageId).classList.add('active');
             
-            // Changer l'apparence des boutons de navigation
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active-tab'));
-            document.getElementById('tab-' + pageId).classList.add('active-tab');
+            // Gérer la couleur des icônes du menu
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active', 'text-[#f68b1e]');
+                item.classList.add('text-gray-400');
+            });
+            event.currentTarget.classList.add('active', 'text-[#f68b1e]');
+            event.currentTarget.classList.remove('text-gray-400');
         }
+    </script>
+</body>
+</html>
