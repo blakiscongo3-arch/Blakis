@@ -57,3 +57,73 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .page { display: none; }
+        .active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-100 pb-20">
+
+    <div id="page-inscription" class="page active p-6 bg-white h-screen">
+        <h2 class="text-2xl font-bold text-[#f68b1e] mb-6">Créer un compte</h2>
+        <input type="text" id="reg-nom" placeholder="Nom complet" class="w-full p-4 border rounded mb-4">
+        <input type="tel" id="reg-tel" placeholder="Numéro de téléphone" class="w-full p-4 border rounded mb-4">
+        <button onclick="validerInscription()" class="w-full bg-[#f68b1e] text-white p-4 rounded font-bold">
+            S'INSCRIRE MAINTENANT
+        </button>
+    </div>
+
+    <div id="page-accueil" class="page p-4">
+        <div class="flex justify-between items-center bg-[#f68b1e] p-4 text-white -m-4 mb-4">
+            <span class="font-bold">BLAKIS STORE</span>
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-2 rounded shadow">
+                <div class="bg-gray-200 h-32 rounded"></div>
+                <p class="font-bold mt-2">Nouvel Article</p>
+                <p class="text-orange-500">En vente ici</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-param" class="page p-4">
+        <h2 class="text-xl font-bold mb-4">Paramètres du compte</h2>
+        <div class="bg-white rounded-lg shadow">
+            <div class="p-4 border-b flex justify-between"><span>Mes Commandes</span> <i class="fa-solid fa-chevron-right"></i></div>
+            <div class="p-4 border-b flex justify-between"><span>Mon Adresse</span> <i class="fa-solid fa-chevron-right"></i></div>
+            <div class="p-4 text-red-500 font-bold" onclick="location.reload()">Déconnexion</div>
+        </div>
+    </div>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around p-3 z-50">
+        <button onclick="ouvrir('page-accueil')" class="flex flex-col items-center text-gray-500">
+            <i class="fa-solid fa-house"></i><span class="text-xs">Accueil</span>
+        </button>
+        <button onclick="ouvrir('page-param')" class="flex flex-col items-center text-gray-500">
+            <i class="fa-solid fa-gear"></i><span class="text-xs">Paramètres</span>
+        </button>
+    </nav>
+
+    <script>
+        function validerInscription() {
+            let nom = document.getElementById('reg-nom').value;
+            if(nom === "") { alert("Mets ton nom !"); return; }
+            alert("Bienvenue " + nom + " ! Ton compte est créé.");
+            ouvrir('page-accueil');
+        }
+
+        function ouvrir(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>
