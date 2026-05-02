@@ -1,35 +1,192 @@
-function checkout() {
-    if(cart.length === 0) return alert("Votre panier est vide !");
-    
-    const total = cart.reduce((s, i) => s + i.p, 0);
-    const method = document.getElementById('payment-method').value;
-    
-    // On remplace le passage direct par une fenêtre de paiement
-    const modalContent = `
-        <div id="pay-modal" class="fixed inset-0 bg-black z-[200] flex justify-center items-center p-4">
-            <div class="bg-white rounded-3xl p-6 w-full max-w-sm text-center">
-                <h2 class="text-xl font-black mb-4 text-gray-800">PROCÉDER AU PAIEMENT</h2>
-                <p class="text-sm text-gray-600 mb-6">Veuillez effectuer le transfert de <br><span class="text-2xl font-black text-orange-500">${total.toLocaleString()} FCFA</span></p>
-                
-                <div class="bg-gray-100 p-4 rounded-2xl mb-6 text-left space-y-2">
-                    <p class="text-xs font-bold text-blue-600">🌊 WAVE : 01 71 40 43 45</p>
-                    <p class="text-xs font-bold text-orange-600">🍊 ORANGE : 05 03 47 57 47</p>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLAKIS STORE | Officiel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .jumia-orange { background-color: #f68b1e; }
+        .bg-f1 { background-color: #f1f1f2; }
+        #side-menu { transition: 0.3s; }
+        .hidden-scroll::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-f1 font-sans pb-20">
+
+    <div id="side-menu" class="fixed inset-y-0 left-0 w-72 bg-white z-[100] shadow-2xl transform -translate-x-full">
+        <div class="jumia-orange p-6 text-white">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="font-bold text-lg italic">BLAKIS STORE</h2>
+                <button onclick="toggleMenu()"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <p class="text-xs">Connectez-vous pour voir vos offres</p>
+            <button class="mt-3 bg-white text-[#f68b1e] px-4 py-2 rounded font-bold text-xs uppercase">Se Connecter</button>
+        </div>
+        <div class="p-4 space-y-5 text-gray-700 text-sm">
+            <div class="flex items-center space-x-4"><i class="fa-solid fa-house"></i> <span>Accueil</span></div>
+            <div class="flex items-center space-x-4"><i class="fa-solid fa-box"></i> <span>Mes Commandes</span></div>
+            <div class="flex items-center space-x-4"><i class="fa-solid fa-heart"></i> <span>Favoris</span></div>
+            <hr>
+            <h3 class="text-[10px] font-bold text-gray-400 uppercase">Nos Catégories</h3>
+            <div class="flex items-center space-x-4"><i class="fa-solid fa-bolt text-yellow-500"></i> <span>Électricité</span></div>
+            <div class="flex items-center space-x-4"><i class="fa-solid fa-mobile-screen"></i> <span>Téléphones</span></div>
+            <div class="flex items-center space-x-4"><i class="fa-solid fa-shirt"></i> <span>Mode</span></div>
+        </div>
+    </div>
+
+    <header class="jumia-orange p-3 sticky top-0 z-50 flex flex-col shadow-md">
+        <div class="flex items-center justify-between text-white mb-2">
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleMenu()"><i class="fa-solid fa-bars text-xl"></i></button>
+                <h1 class="text-xl font-black italic">BLAKIS</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <i class="fa-solid fa-user text-xl"></i>
+                <div class="relative" onclick="showCart()">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
                 </div>
-
-                <p class="text-[10px] text-gray-400 mb-4 italic">Une fois le transfert fait, cliquez sur le bouton ci-dessous pour nous envoyer la preuve.</p>
-
-                <button onclick="confirmOrder('${method}', ${total})" class="w-full bg-green-500 text-white py-4 rounded-2xl font-bold mb-3">J'AI PAYÉ (CONFIRMER)</button>
-                <button onclick="document.getElementById('pay-modal').remove()" class="text-gray-400 font-bold">Annuler</button>
             </div>
         </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', modalContent);
-}
+        <div class="relative bg-white rounded flex items-center p-2">
+            <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2 text-sm"></i>
+            <input type="text" placeholder="Chercher un article..." class="w-full text-sm outline-none">
+        </div>
+    </header>
 
-function confirmOrder(method, total) {
-    const list = cart.map(i => "• " + i.n).join('%0A');
-    const texte = `✅ PAIEMENT EFFECTUÉ%0A%0AJe viens de payer ${total} FCFA par ${method}.%0A%0AArticles commandés :%0A${list}`;
-    window.open(`https://wa.me/2250171404345?text=${texte}`);
-    document.getElementById('pay-modal').remove();
-}
+    <div class="bg-blue-700 text-white text-[11px] p-2 text-center font-bold">
+        LIVRAISON GRATUITE SUR BONDOUKOU 🚚
+    </div>
 
+    <div class="p-2 grid grid-cols-2 gap-2" id="productGrid"></div>
+
+    <nav class="fixed bottom-0 inset-x-0 bg-white border-t flex justify-around p-2 text-gray-500 z-50">
+        <div class="flex flex-col items-center text-[#f68b1e]"><i class="fa-solid fa-house text-lg"></i><span class="text-[10px]">Accueil</span></div>
+        <div class="flex flex-col items-center"><i class="fa-solid fa-list text-lg"></i><span class="text-[10px]">Catégories</span></div>
+        <div class="flex flex-col items-center"><i class="fa-solid fa-bolt text-lg"></i><span class="text-[10px]">Flash</span></div>
+        <div class="flex flex-col items-center" onclick="showCart()"><i class="fa-solid fa-cart-shopping text-lg"></i><span class="text-[10px]">Panier</span></div>
+    </nav>
+
+    <div id="cart-modal" class="fixed inset-0 bg-black/50 z-[200] hidden flex flex-col justify-end">
+        <div class="bg-white rounded-t-3xl p-5 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-5 border-b pb-3">
+                <h2 class="font-bold text-lg uppercase">Mon Panier (<span id="cart-qty">0</span>)</h2>
+                <button onclick="hideCart()" class="text-3xl">&times;</button>
+            </div>
+            <div id="cart-items" class="space-y-4"></div>
+            <div class="mt-6 border-t pt-4">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-gray-500 font-bold">Total</span>
+                    <span id="cart-total" class="text-xl font-black text-[#f68b1e]">0 F</span>
+                </div>
+                <button onclick="startPayment()" class="w-full bg-[#f68b1e] text-white py-4 rounded font-bold shadow-lg uppercase">Passer à la caisse</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pay-screen" class="fixed inset-0 bg-white z-[300] hidden flex flex-col">
+        <div class="p-4 border-b flex items-center space-x-4">
+            <button onclick="closePay()"><i class="fa-solid fa-arrow-left text-xl"></i></button>
+            <h2 class="font-bold">PAIEMENT SÉCURISÉ</h2>
+        </div>
+        <div class="p-6">
+            <p class="text-gray-500 text-sm mb-4">Choisissez votre mode de paiement :</p>
+            <div class="space-y-3">
+                <div class="p-4 border-2 border-orange-500 rounded-xl flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center"><span class="font-black text-blue-600 mr-2">🌊</span> <b>WAVE CI</b></div>
+                    <i class="fa-solid fa-circle-check text-orange-500"></i>
+                </div>
+                <div class="p-4 border rounded-xl flex items-center opacity-50">
+                    <div class="flex items-center"><span class="font-black text-orange-500 mr-2">🍊</span> <b>ORANGE MONEY</b></div>
+                </div>
+            </div>
+            <div class="mt-8">
+                <label class="text-[10px] font-bold text-gray-400 uppercase">Numéro de téléphone</label>
+                <input type="number" placeholder="Ex: 0171404345" class="w-full border-b-2 border-gray-200 py-3 text-lg outline-none focus:border-orange-500">
+            </div>
+            <button onclick="processFinal()" class="mt-10 w-full bg-black text-white py-4 rounded font-bold">PAYER MAINTENANT</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {id:1, n: 'Ventilateur Rechargeable', p: 18000, img: 'https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=400'},
+            {id:2, n: 'Chargeur iPhone 20W', p: 5000, img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400'},
+            {id:3, n: 'Airpods Pro Luxe', p: 10000, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'},
+            {id:4, n: 'Câble Type-C Rapide', p: 2500, img: 'https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=400'}
+        ];
+
+        let cart = [];
+
+        function render() {
+            document.getElementById('productGrid').innerHTML = products.map(p => `
+                <div class="bg-white rounded overflow-hidden shadow-sm flex flex-col">
+                    <img src="${p.img}" class="w-full h-36 object-cover">
+                    <div class="p-2 flex-1 flex flex-col">
+                        <h3 class="text-[11px] h-8 overflow-hidden">${p.n}</h3>
+                        <p class="font-bold text-sm my-1">${p.p.toLocaleString()} F</p>
+                        <button onclick="addToCart(${p.id})" class="w-full bg-[#f68b1e] text-white py-1.5 rounded text-[10px] font-bold uppercase shadow-sm">Ajouter</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            const exist = cart.find(x => x.id === id);
+            if(exist) exist.qty++;
+            else cart.push({...p, qty: 1});
+            update();
+        }
+
+        function update() {
+            const qty = cart.reduce((s, i) => s + i.qty, 0);
+            const total = cart.reduce((s, i) => s + (i.p * i.qty), 0);
+            document.getElementById('cart-count').innerText = qty;
+            document.getElementById('cart-qty').innerText = qty;
+            document.getElementById('cart-total').innerText = total.toLocaleString() + " F";
+            
+            document.getElementById('cart-items').innerHTML = cart.map((i, idx) => `
+                <div class="flex items-center space-x-3 border-b pb-3">
+                    <img src="${i.img}" class="w-16 h-16 rounded object-cover">
+                    <div class="flex-1">
+                        <h4 class="text-xs font-bold">${i.n}</h4>
+                        <p class="text-[#f68b1e] font-bold text-sm">${i.p.toLocaleString()} F</p>
+                        <div class="flex items-center space-x-4 mt-2">
+                            <button onclick="changeQty(${idx}, -1)" class="bg-gray-100 px-2 rounded">-</button>
+                            <span class="text-xs">${i.qty}</span>
+                            <button onclick="changeQty(${idx}, 1)" class="bg-gray-100 px-2 rounded">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function changeQty(idx, val) {
+            cart[idx].qty += val;
+            if(cart[idx].qty <= 0) cart.splice(idx, 1);
+            update();
+        }
+
+        function startPayment() {
+            if(cart.length === 0) return alert("Panier vide !");
+            document.getElementById('pay-screen').classList.remove('hidden');
+        }
+
+        function processFinal() {
+            alert("🔒 Connexion au serveur de paiement...\n\nVeuillez valider la transaction sur votre téléphone.");
+            // Ici, plus tard on mettra le vrai lien de paiement automatique CinetPay
+            location.reload();
+        }
+
+        function toggleMenu() { document.getElementById('side-menu').classList.toggle('-translate-x-full'); }
+        function showCart() { document.getElementById('cart-modal').classList.remove('hidden'); }
+        function hideCart() { document.getElementById('cart-modal').classList.add('hidden'); }
+        function closePay() { document.getElementById('pay-screen').classList.add('hidden'); }
+
+        render();
+    </script>
+</body>
+</html>
