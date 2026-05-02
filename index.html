@@ -1,156 +1,35 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLAKIS STORE | Boutique de Luxe</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .jumia-orange { background-color: #f68b1e; }
-        .text-jumia { color: #f68b1e; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .animate-in { animation: fadeIn 0.5s ease-in; }
-    </style>
-</head>
-<body class="bg-gray-50 font-sans pb-20 animate-in">
-
-    <header class="jumia-orange p-4 sticky top-0 z-50 shadow-lg flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <i class="fa-solid fa-store text-white text-xl"></i>
-            <h1 class="text-white text-2xl font-black italic tracking-wider">BLAKIS</h1>
-        </div>
-        <div class="relative bg-white/20 p-2 rounded-lg" onclick="showCart()">
-            <i class="fa-solid fa-bag-shopping text-white text-2xl"></i>
-            <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-white">0</span>
-        </div>
-    </header>
-
-    <div class="p-4 bg-white border-b">
-        <h2 class="font-bold text-gray-800">Bonjour ! 👋</h2>
-        <p class="text-xs text-gray-500">Bienvenue chez Blakis. Qualité garantie à Bondoukou.</p>
-    </div>
-
-    <div class="p-3 grid grid-cols-2 gap-3" id="productGrid"></div>
-
-    <div id="cart-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex justify-center items-end backdrop-blur-sm">
-        <div class="bg-white w-full max-h-[85vh] rounded-t-3xl p-6 shadow-2xl overflow-y-auto">
-            <div class="flex justify-between items-center mb-6 border-b pb-3">
-                <h2 class="text-xl font-black">Récapitulatif Commande</h2>
-                <button onclick="hideCart()" class="text-gray-400 text-3xl">&times;</button>
-            </div>
-            
-            <div id="cart-items" class="space-y-4 mb-6">
-                </div>
-
-            <div class="bg-gray-50 p-4 rounded-xl space-y-3">
-                <div class="flex justify-between text-gray-600">
-                    <span>Sous-total</span>
-                    <span id="sub-total">0 F</span>
-                </div>
-                <div class="flex justify-between font-black text-xl border-t pt-3 text-gray-900">
-                    <span>TOTAL</span>
-                    <span id="cart-total" class="text-jumia">0 FCFA</span>
-                </div>
-            </div>
-
-            <div class="mt-6 space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 mb-2 uppercase">Mode de Paiement</label>
-                    <select id="payment-method" class="w-full p-3 border-2 border-gray-100 rounded-xl outline-none focus:border-[#f68b1e] transition-all">
-                        <option value="Wave">Wave</option>
-                        <option value="Orange Money">Orange Money</option>
-                        <option value="MTN Money">MTN Money</option>
-                        <option value="Cash à la livraison">Espèces à la livraison</option>
-                    </select>
-                </div>
+function checkout() {
+    if(cart.length === 0) return alert("Votre panier est vide !");
+    
+    const total = cart.reduce((s, i) => s + i.p, 0);
+    const method = document.getElementById('payment-method').value;
+    
+    // On remplace le passage direct par une fenêtre de paiement
+    const modalContent = `
+        <div id="pay-modal" class="fixed inset-0 bg-black z-[200] flex justify-center items-center p-4">
+            <div class="bg-white rounded-3xl p-6 w-full max-w-sm text-center">
+                <h2 class="text-xl font-black mb-4 text-gray-800">PROCÉDER AU PAIEMENT</h2>
+                <p class="text-sm text-gray-600 mb-6">Veuillez effectuer le transfert de <br><span class="text-2xl font-black text-orange-500">${total.toLocaleString()} FCFA</span></p>
                 
-                <button onclick="checkout()" class="w-full jumia-orange text-white py-4 rounded-2xl font-black text-lg shadow-xl active:scale-95 transition-transform">
-                    VALIDER ET PAYER
-                </button>
+                <div class="bg-gray-100 p-4 rounded-2xl mb-6 text-left space-y-2">
+                    <p class="text-xs font-bold text-blue-600">🌊 WAVE : 01 71 40 43 45</p>
+                    <p class="text-xs font-bold text-orange-600">🍊 ORANGE : 05 03 47 57 47</p>
+                </div>
+
+                <p class="text-[10px] text-gray-400 mb-4 italic">Une fois le transfert fait, cliquez sur le bouton ci-dessous pour nous envoyer la preuve.</p>
+
+                <button onclick="confirmOrder('${method}', ${total})" class="w-full bg-green-500 text-white py-4 rounded-2xl font-bold mb-3">J'AI PAYÉ (CONFIRMER)</button>
+                <button onclick="document.getElementById('pay-modal').remove()" class="text-gray-400 font-bold">Annuler</button>
             </div>
         </div>
-    </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalContent);
+}
 
-    <script>
-        const products = [
-            {id:1, n: 'Ventilateur Binatone', p: 18000, img: 'https://images.unsplash.com/photo-1591123120675-6f7f1aae0e5b?w=400'},
-            {id:2, n: 'Chargeur Rapide 20W', p: 5000, img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400'},
-            {id:3, n: 'Airpods Pro Luxe', p: 10000, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'},
-            {id:4, n: 'Rallonge Protectrice', p: 3500, img: 'https://images.unsplash.com/photo-1558403194-611308249627?w=400'},
-            {id:5, n: 'Smartwatch Serie 8', p: 15000, img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400'},
-            {id:6, n: 'Lampe Solaire LED', p: 12000, img: 'https://images.unsplash.com/photo-1508514177221-188b171f2bb3?w=400'}
-        ];
+function confirmOrder(method, total) {
+    const list = cart.map(i => "• " + i.n).join('%0A');
+    const texte = `✅ PAIEMENT EFFECTUÉ%0A%0AJe viens de payer ${total} FCFA par ${method}.%0A%0AArticles commandés :%0A${list}`;
+    window.open(`https://wa.me/2250171404345?text=${texte}`);
+    document.getElementById('pay-modal').remove();
+}
 
-        let cart = [];
-
-        function render() {
-            document.getElementById('productGrid').innerHTML = products.map(p => `
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="relative">
-                        <img src="${p.img}" class="w-full h-36 object-cover">
-                        <span class="absolute top-2 left-2 bg-black/70 text-white text-[9px] px-2 py-0.5 rounded-full uppercase">Stock Dispo</span>
-                    </div>
-                    <div class="p-3">
-                        <h3 class="text-[11px] font-bold text-gray-700 h-8 overflow-hidden line-clamp-2">${p.n}</h3>
-                        <p class="text-jumia font-black text-md my-1">${p.p.toLocaleString()} F</p>
-                        <button onclick="addToCart(${p.id})" class="w-full border-2 border-[#f68b1e] text-jumia py-1.5 rounded-xl text-[10px] font-black hover:bg-[#f68b1e] hover:text-white transition-colors">
-                            AJOUTER
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            cart.push(product);
-            updateCart();
-            // Petite vibration ou retour visuel
-            const count = document.getElementById('cart-count');
-            count.classList.add('scale-125');
-            setTimeout(() => count.classList.remove('scale-125'), 200);
-        }
-
-        function updateCart() {
-            document.getElementById('cart-count').innerText = cart.length;
-            const total = cart.reduce((s, i) => s + i.p, 0);
-            document.getElementById('sub-total').innerText = total.toLocaleString() + " F";
-            document.getElementById('cart-total').innerText = total.toLocaleString() + " FCFA";
-            
-            document.getElementById('cart-items').innerHTML = cart.length === 0 ? 
-                `<p class="text-center text-gray-400 py-10">Votre panier est vide</p>` :
-                cart.map((item, index) => `
-                <div class="flex items-center gap-4 bg-gray-50 p-3 rounded-2xl">
-                    <img src="${item.img}" class="w-12 h-12 rounded-lg object-cover">
-                    <div class="flex-1">
-                        <h4 class="text-xs font-bold">${item.n}</h4>
-                        <p class="text-jumia font-bold text-sm">${item.p.toLocaleString()} F</p>
-                    </div>
-                    <button onclick="remove(${index})" class="text-red-400 p-2"><i class="fa-solid fa-trash-can"></i></button>
-                </div>
-            `).join('');
-        }
-
-        function remove(index) { cart.splice(index, 1); updateCart(); }
-        function showCart() { document.getElementById('cart-modal').classList.remove('hidden'); }
-        function hideCart() { document.getElementById('cart-modal').classList.add('hidden'); }
-
-        function checkout() {
-            if(cart.length === 0) return alert("Votre panier est vide !");
-            
-            const total = cart.reduce((s, i) => s + i.p, 0);
-            const method = document.getElementById('payment-method').value;
-            const list = cart.map(i => "• " + i.n).join('%0A');
-            
-            // On utilise un des deux numéros, ici le premier par défaut
-            const monNumero = "2250171404345"; 
-            const texte = `NOUVELLE COMMANDE BLAKIS STORE%0A%0AArticles:%0A${list}%0A%0ATotal: ${total} FCFA%0APaiement: ${method}%0A%0AMerci de valider ma commande !`;
-            
-            window.open(`https://wa.me/${monNumero}?text=${texte}`);
-        }
-
-        render();
-    </script>
-</body>
-</html>
