@@ -3,149 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BLAKIS ÉLEC PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>ALIBABA | BLAKIS ÉLEC PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-gold: #FFD700; /* Couleur luxe */
-            --deep-dark: #0A0A0A;    /* Fond haut de gamme */
-            --card-bg: #1A1A1A;      /* Cartes produits */
-            --text-main: #FFFFFF;
-            --accent-red: #FF4D4D;   /* Pour les prix qui attirent l'oeil */
+            --ali-orange: #FF6A00; /* Le orange officiel d'Alibaba */
+            --ali-bg: #F4F4F4;
+            --ali-dark: #333333;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--deep-dark);
-            color: var(--text-main);
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--ali-bg);
             margin: 0;
             padding: 0;
+            color: var(--ali-dark);
         }
 
-        /* En-tête minimalist style Tech-Chine */
-        .app-bar {
-            background: var(--deep-dark);
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #333;
+        /* Barre de recherche style Alibaba */
+        .header-ali {
+            background-color: var(--ali-orange);
+            padding: 15px;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .app-bar h1 {
-            font-size: 20px;
+        .header-ali h1 {
+            color: white;
+            font-size: 18px;
             margin: 0;
-            letter-spacing: 2px;
-            color: var(--primary-gold);
+            text-align: center;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Grille Haute Performance (2 colonnes) */
-        .product-grid {
+        /* Grille de produits professionnelle */
+        .main-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 15px;
+            gap: 10px;
+            padding: 10px;
         }
 
         .product-card {
-            background: var(--card-bg);
-            border-radius: 16px;
+            background: white;
+            border-radius: 4px; /* Alibaba utilise des angles peu arrondis pour faire "Pro" */
             overflow: hidden;
-            border: 1px solid #222;
-            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            border: 0.5px solid #e0e0e0;
         }
 
         .product-image {
             width: 100%;
-            height: 150px;
-            background-color: #222;
+            height: 160px;
             object-fit: cover;
+            background-color: #fff;
         }
 
-        .product-info {
-            padding: 12px;
+        .product-details {
+            padding: 10px;
+            flex-grow: 1;
         }
 
-        .product-title {
+        .product-name {
             font-size: 13px;
-            font-weight: 400;
-            margin: 0;
+            line-height: 1.4;
             height: 36px;
             overflow: hidden;
-            color: #BBB;
+            margin: 0;
+            color: #444;
+            font-weight: 400;
         }
 
         .product-price {
             font-size: 18px;
             font-weight: 700;
-            margin: 8px 0;
-            color: var(--primary-gold);
+            color: var(--ali-orange);
+            margin: 10px 0 5px 0;
         }
 
-        /* Bouton Action Directe WhatsApp */
-        .buy-button {
-            display: block;
-            background: var(--primary-gold);
-            color: black;
-            text-decoration: none;
+        .moq {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        /* Bouton de transaction instantanée WhatsApp */
+        .btn-order {
+            background: linear-gradient(90deg, #FF9000 0%, #FF5000 100%);
+            color: white;
             text-align: center;
+            text-decoration: none;
             padding: 12px;
             font-weight: 700;
             font-size: 14px;
-            border-radius: 8px;
-            margin-top: 10px;
+            border-radius: 20px;
+            margin: 0 10px 10px 10px;
+            display: block;
         }
 
-        /* Style des boutons quand on touche sur mobile */
-        .buy-button:active {
+        .btn-order:active {
             opacity: 0.8;
-            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
 
-<div class="app-bar">
+<div class="header-ali">
     <h1>BLAKIS ÉLEC PRO</h1>
 </div>
 
-<div class="product-grid">
+<div class="main-container">
     <div class="product-card">
         <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb" class="product-image">
-        <div class="product-info">
-            <h3 class="product-title">PANNEAU SOLAIRE 200W MONO</h3>
-            <p class="product-price">45.000 F</p>
-            <a href="https://wa.me/225XXXXXXXX?text=Commande%20Panneau%20Solaire%20200W" class="buy-button">ACHETER</a>
+        <div class="product-details">
+            <h3 class="product-name">Panneau Solaire 200W Monocristallin Grade A</h3>
+            <p class="product-price">45 000 F</p>
+            <p class="moq">Min. Order: 1 Piece</p>
         </div>
+        <a href="https://wa.me/225XXXXXXXX?text=Order%20Inquiry:%20Panneau%20Solaire%20200W" class="btn-order">Contact Supplier</a>
     </div>
 
     <div class="product-card">
         <img src="https://images.unsplash.com/photo-1617788131775-ceb2027fd12c" class="product-image">
-        <div class="product-info">
-            <h3 class="product-title">BATTERIE GEL 100Ah 12V</h3>
-            <p class="product-price">85.000 F</p>
-            <a href="https://wa.me/225XXXXXXXX?text=Commande%20Batterie%20100Ah" class="buy-button">ACHETER</a>
+        <div class="product-details">
+            <h3 class="product-name">Batterie Solaire GEL 100Ah Deep Cycle</h3>
+            <p class="product-price">85 000 F</p>
+            <p class="moq">Min. Order: 1 Piece</p>
         </div>
+        <a href="https://wa.me/225XXXXXXXX?text=Order%20Inquiry:%20Batterie%20100Ah" class="btn-order">Contact Supplier</a>
     </div>
 
     <div class="product-card">
         <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc4b" class="product-image">
-        <div class="product-info">
-            <h3 class="product-title">CÂBLE 2.5mm ROUGE (100m)</h3>
-            <p class="product-price">24.000 F</p>
-            <a href="https://wa.me/225XXXXXXXX?text=Commande%20Cable%202.5mm" class="buy-button">ACHETER</a>
+        <div class="product-details">
+            <h3 class="product-name">Câble Électrique Cuivre 2.5mm (Rouleau 100m)</h3>
+            <p class="product-price">24 000 F</p>
+            <p class="moq">Min. Order: 1 Roll</p>
         </div>
+        <a href="https://wa.me/225XXXXXXXX?text=Order%20Inquiry:%20Cable%202.5mm" class="btn-order">Contact Supplier</a>
     </div>
 
     <div class="product-card">
         <img src="https://images.unsplash.com/photo-1558002038-1055907df827" class="product-image">
-        <div class="product-info">
-            <h3 class="product-title">DISJONCTEUR 16A SCHNEIDER</h3>
-            <p class="product-price">2.500 F</p>
-            <a href="https://wa.me/225XXXXXXXX?text=Commande%20Disjoncteur%2016A" class="buy-button">ACHETER</a>
+        <div class="product-details">
+            <h3 class="product-name">Disjoncteur de Protection 16A Schneider</h3>
+            <p class="product-price">2 500 F</p>
+            <p class="moq">Min. Order: 1 Piece</p>
         </div>
+        <a href="https://wa.me/225XXXXXXXX?text=Order%20Inquiry:%20Disjoncteur%2016A" class="btn-order">Contact Supplier</a>
     </div>
 </div>
 
