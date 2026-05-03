@@ -5,50 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BLAKIS ÉLEC PRO</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
-        header { background-color: #ff9800; color: white; text-align: center; padding: 20px; }
-        .grille { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px; }
-        .carte { background: white; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .carte img { width: 100%; border-radius: 5px; height: 120px; object-fit: cover; }
-        .carte h3 { font-size: 14px; margin: 10px 0; height: 35px; overflow: hidden; }
-        .prix { color: #e91e63; font-weight: bold; font-size: 16px; }
-        .btn-cmd { display: block; background: #25d366; color: white; text-decoration: none; padding: 8px; border-radius: 5px; margin-top: 10px; font-size: 12px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; }
+        header { background: #ff9800; color: white; padding: 15px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: 130px; object-fit: cover; background: #eee; }
+        .info { padding: 10px; flex-grow: 1; text-align: center; }
+        .info h3 { font-size: 14px; margin: 5px 0; color: #333; height: 32px; overflow: hidden; }
+        .prix { color: #d32f2f; font-weight: bold; font-size: 16px; margin: 5px 0; }
+        .btn-wa { background: #25d366; color: white; text-decoration: none; padding: 10px; border-radius: 0 0 12px 12px; font-weight: bold; font-size: 13px; text-align: center; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>BLAKIS ÉLEC PRO</h1>
-    <p>Matériel Électrique & Solaire - Bondoukou</p>
+    <h2 style="margin:0">BLAKIS ÉLEC PRO</h2>
+    <small>Bondoukou - Matériel Solaire & Élec</small>
 </header>
 
-<div class="grille">
-    <div class="carte">
-        <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb" alt="Panneau Solaire">
-        <h3>Panneau Solaire 200W Mono</h3>
-        <p class="prix">45 000 FCFA</p>
-        <a href="https://wa.me/2250171404345?text=Je%20veux%20le%20Panneau%20Solaire%20200W" class="btn-cmd">Commander sur WhatsApp</a>
+<div class="container">
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb" alt="Solaire">
+        <div class="info">
+            <h3>Panneau Solaire 200W</h3>
+            <p class="prix">45 000 F</p>
+        </div>
+        <a href="https://wa.me/225XXXXXXXX?text=Bonjour%20Blakis,%20je%20veux%20le%20Panneau%20Solaire%20200W" class="btn-wa">COMMANDER</a>
     </div>
 
-    <div class="carte">
+    <div class="card">
         <img src="https://images.unsplash.com/photo-1617788131775-ceb2027fd12c" alt="Batterie">
-        <h3>Batterie 100Ah GEL</h3>
-        <p class="prix">85 000 FCFA</p>
-        <a href="https://wa.me/2250171404345?text=Je%20veux%20la%20Batterie%20100Ah" class="btn-cmd">Commander sur WhatsApp</a>
+        <div class="info">
+            <h3>Batterie 100Ah GEL</h3>
+            <p class="prix">85 000 F</p>
+        </div>
+        <a href="https://wa.me/225XXXXXXXX?text=Bonjour%20Blakis,%20je%20veux%20la%20Batterie%20100Ah" class="btn-wa">COMMANDER</a>
     </div>
 
-    <div class="carte">
+    <div class="card">
         <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc4b" alt="Câble">
-        <h3>Câble 1.5mm Rouge (100m)</h3>
-        <p class="prix">16 500 FCFA</p>
-        <a href="https://wa.me/2250171404345?text=Je%20veux%20le%20cable%201.5mm" class="btn-cmd">Commander sur WhatsApp</a>
+        <div class="info">
+            <h3>Câble 1.5mm (100m)</h3>
+            <p class="prix">16 500 F</p>
+        </div>
+        <a href="https://wa.me/225XXXXXXXX?text=Bonjour%20Blakis,%20je%20veux%20le%20Câble%201.5mm" class="btn-wa">COMMANDER</a>
     </div>
 
-    <div class="carte">
-        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc4b" alt="Câble">
-        <h3>Câble 2.5mm Bleu (100m)</h3>
-        <p class="prix">24 000 FCFA</p>
-        <a href="https://wa.me/2250171404345?text=Je%20veux%20le%20cable%202.5mm" class="btn-cmd">Commander sur WhatsApp</a>
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1558002038-1055907df827" alt="Disjoncteur">
+        <div class="info">
+            <h3>Disjoncteur 16A</h3>
+            <p class="prix">2 500 F</p>
+        </div>
+        <a href="https://wa.me/225XXXXXXXX?text=Bonjour%20Blakis,%20je%20veux%20le%20Disjoncteur%2016A" class="btn-wa">COMMANDER</a>
     </div>
 </div>
 
