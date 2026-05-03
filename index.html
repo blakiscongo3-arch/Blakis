@@ -161,4 +161,26 @@
         let message = `COMMANDE BLAKIS GLOBAL\nClient : ${currentUser}\nArticles : ${list}\nTotal : ${total} F CFA`;
         window.location.href = "https://wa.me/225XXXXXXXX?text=" + encodeURIComponent(message);
     }
+</script><script>
+function validerCompte() {
+    let nom = document.getElementById('reg-name').value;
+    let tel = document.getElementById('reg-phone').value;
+
+    if(nom.length > 2 && tel.length > 7) {
+        // 1. On cache le mur pour laisser entrer le client
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('app-content').style.display = 'block';
+        
+        // 2. On envoie le message de confirmation à Blakis (le boss)
+        let messageBienvenue = `LOG : Nouveau compte créé !\nClient : ${nom}\nContact : ${tel}\nStatut : Accès autorisé.`;
+        
+        // Ceci ouvre une fenêtre invisible pour envoyer l'info
+        window.open(`https://wa.me/225XXXXXXXX?text=${encodeURIComponent(messageBienvenue)}`, '_blank');
+        
+        alert("Félicitations " + nom + " ! Votre compte est activé.");
+    } else {
+        alert("Veuillez remplir toutes les informations.");
+    }
+}
 </script>
+
