@@ -118,24 +118,8 @@
         let msg = `NOUVELLE COMMANDE - BLAKIS GLOBAL\nClient : ${userName}\nArticles : ${list}\nTotal à payer : ${total} F CFA`;
         window.location.href = "https://wa.me/225XXXXXXXX?text=" + encodeURIComponent(msg);
     }
-</script>
+</scrip
 
-</body>
-</html>
-<script>
-    let basket = [];
-    let currentUser = "";
-
-    // 1. FONCTION POUR DÉBLOQUER (INSCRIPTION)
-    function unlockApp() {
-        currentUser = document.getElementById('username').value;
-        if(currentUser.length > 2) {
-            document.getElementById('gate').style.display = 'none'; // Cache le mur
-            document.getElementById('app-content').style.display = 'block'; // Montre les images
-        } else {
-            alert("Veuillez entrer votre nom pour accéder aux articles.");
-        }
-    }
 
     // 2. FONCTION POUR AJOUTER AU PANIER (TRAVAIL DES BOUTONS)
     function addToCart(itemName, price) {
