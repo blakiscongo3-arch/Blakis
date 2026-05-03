@@ -3,160 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ALIBABA | BLAKIS ÉLEC PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>BLAKIS GLOBAL ÉNERGIE PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --ali-orange: #FF6A00; /* Le orange officiel d'Alibaba */
-            --ali-bg: #F4F4F4;
-            --ali-dark: #333333;
-        }
+        :root { --main: #FF6A00; --dark-bg: #050505; --card-bg: #121212; --text: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: var(--text); margin: 0; padding: 0; }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--ali-bg);
-            margin: 0;
-            padding: 0;
-            color: var(--ali-dark);
-        }
+        /* BLOCAGE ACCÈS - ÉCRAN INSCRIPTION */
+        #gatekeeper { position: fixed; inset: 0; background: var(--dark-bg); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 25px; }
+        .auth-card { width: 100%; max-width: 400px; text-align: center; background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid #333; }
+        input { width: 100%; padding: 15px; margin: 15px 0; border-radius: 10px; border: 1px solid #444; background: #000; color: white; font-size: 16px; box-sizing: border-box; }
+        .btn-entry { width: 100%; padding: 18px; background: var(--main); border: none; border-radius: 10px; font-weight: 800; cursor: pointer; color: #000; text-transform: uppercase; }
 
-        /* Barre de recherche style Alibaba */
-        .header-ali {
-            background-color: var(--ali-orange);
-            padding: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        /* APPLICATION PRINCIPALE (CACHÉE) */
+        #app-content { display: none; }
+        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--main); position: sticky; top: 0; z-index: 100; }
+        
+        /* GRILLE DE MANIPULATION */
+        .container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; padding-bottom: 100px; }
+        .item-card { background: var(--card-bg); border-radius: 15px; border: 1px solid #222; overflow: hidden; display: flex; flex-direction: column; }
+        .item-card img { width: 100%; height: 140px; object-fit: cover; }
+        .item-details { padding: 12px; flex-grow: 1; }
+        .item-name { font-size: 13px; color: #aaa; margin: 0; height: 34px; overflow: hidden; }
+        .item-price { font-size: 18px; color: var(--main); font-weight: 700; margin: 8px 0; }
+        .btn-add { width: 100%; background: #333; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .btn-add:active { background: var(--main); color: black; }
 
-        .header-ali h1 {
-            color: white;
-            font-size: 18px;
-            margin: 0;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Grille de produits professionnelle */
-        .main-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 10px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 4px; /* Alibaba utilise des angles peu arrondis pour faire "Pro" */
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            border: 0.5px solid #e0e0e0;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            background-color: #fff;
-        }
-
-        .product-details {
-            padding: 10px;
-            flex-grow: 1;
-        }
-
-        .product-name {
-            font-size: 13px;
-            line-height: 1.4;
-            height: 36px;
-            overflow: hidden;
-            margin: 0;
-            color: #444;
-            font-weight: 400;
-        }
-
-        .product-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--ali-orange);
-            margin: 10px 0 5px 0;
-        }
-
-        .moq {
-            font-size: 11px;
-            color: #999;
-            margin-bottom: 10px;
-        }
-
-        /* Bouton de transaction instantanée WhatsApp */
-        .btn-order {
-            background: linear-gradient(90deg, #FF9000 0%, #FF5000 100%);
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            padding: 12px;
-            font-weight: 700;
-            font-size: 14px;
-            border-radius: 20px;
-            margin: 0 10px 10px 10px;
-            display: block;
-        }
-
-        .btn-order:active {
-            opacity: 0.8;
-        }
+        /* BARRE DE PANIER PROFESSIONNELLE */
+        .cart-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--main); color: black; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; font-weight: 900; box-shadow: 0 -10px 30px rgba(0,0,0,0.5); border-radius: 20px 20px 0 0; }
     </style>
 </head>
 <body>
 
-<div class="header-ali">
-    <h1>BLAKIS ÉLEC PRO</h1>
-</div>
-
-<div class="main-container">
-    <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb" class="product-image">
-        <div class="product-details">
-            <h3 class="product-name">Panneau Solaire 200W Monocristallin Grade A</h3>
-            <p class="product-price">45 000 F</p>
-            <p class="moq">Min. Order: 1 Piece</p>
-        </div>
-        <a href="https://wa.me/225XXXXXXXX?text=Order%20Inquiry:%20Panneau%20Solaire%20200W" class="btn-order">Contact Supplier</a>
-    </div>
-
-    <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1617788131775-ceb2027fd12c" class="product-image">
-        <div class="product-details">
-            <h3 class="product-name">Batterie Solaire GEL 100Ah Deep Cycle</h3>
-            <p class="product-price">85 000 F</p>
-            <p class="moq">Min. Order: 1 Piece</p>
-        </div>
-        <a href="https://wa.me/225XXXXXXXX?text=Order%20Inquiry:%20Batterie%20100Ah" class="btn-order">Contact Supplier</a>
-    </div>
-
-    <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc4b" class="product-image">
-        <div class="product-details">
-            <h3 class="product-name">Câble Électrique Cuivre 2.5mm (Rouleau 100m)</h3>
-            <p class="product-price">24 000 F</p>
-            <p class="moq">Min. Order: 1 Roll</p>
-        </div>
-        <a href="https://wa.me/225XXXXXXXX?text=Order%20Inquiry:%20Cable%202.5mm" class="btn-order">Contact Supplier</a>
-    </div>
-
-    <div class="product-card">
-        <img src="https://images.unsplash.com/photo-1558002038-1055907df827" class="product-image">
-        <div class="product-details">
-            <h3 class="product-name">Disjoncteur de Protection 16A Schneider</h3>
-            <p class="product-price">2 500 F</p>
-            <p class="moq">Min. Order: 1 Piece</p>
-        </div>
-        <a href="https://wa.me/225XXXXXXXX?text=Order%20Inquiry:%20Disjoncteur%2016A" class="btn-order">Contact Supplier</a>
+<div id="gatekeeper">
+    <div class="auth-card">
+        <h1 style="color: var(--main); margin-bottom: 5px;">BLAKIS GLOBAL</h1>
+        <p style="color: #888; font-size: 14px;">Identifiez-vous pour voir le catalogue</p>
+        <input type="text" id="client-name" placeholder="Votre Nom et Prénom">
+        <input type="tel" id="client-phone" placeholder="Votre Numéro WhatsApp">
+        <button class="btn-entry" onclick="unlockApp()">Créer mon compte & Entrer</button>
     </div>
 </div>
+
+<div id="app-content">
+    <header>
+        <h1 style="margin:0; font-size: 20px; letter-spacing: 1px;">BLAKIS GLOBAL ÉNERGIE</h1>
+        <div id="user-display" style="font-size: 11px; color: var(--main); margin-top: 5px;"></div>
+    </header>
+
+    <div class="container" id="shelf">
+        </div>
+
+    <div class="cart-footer" onclick="sendToWhatsApp()">
+        <div>
+            <span id="cart-qty">0</span> ARTICLE(S)<br>
+            <span id="cart-total" style="font-size: 20px;">0 F CFA</span>
+        </div>
+        <div style="background: black; color: white; padding: 10px 20px; border-radius: 10px;">COMMANDER ></div>
+    </div>
+</div>
+
+<script>
+    // ICI ON MET LE STOCK (Tu peux en ajouter jusqu'à 100 si tu veux)
+    const STOCK = [
+        { id: 1, n: "Panneau Solaire 200W Mono", p: 45000, img: "https://images.unsplash.com/photo-1509391366360-fe5bb58583bb" },
+        { id: 2, n: "Batterie GEL 100Ah 12V", p: 85000, img: "https://images.unsplash.com/photo-1617788131775-ceb2027fd12c" },
+        { id: 3, n: "Câble 2.5mm Rouge (100m)", p: 24000, img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc4b" },
+        { id: 4, n: "Disjoncteur Schneider 16A", p: 2500, img: "https://images.unsplash.com/photo-1558002038-1055907df827" },
+        // Ajoute les autres lignes ici en suivant le même modèle
+    ];
+
+    let basket = [];
+    let userName = "";
+
+    function unlockApp() {
+        userName = document.getElementById('client-name').value;
+        let phone = document.getElementById('client-phone').value;
+        if(userName.length > 2 && phone.length > 7) {
+            document.getElementById('gatekeeper').style.display = 'none';
+            document.getElementById('app-content').style.display = 'block';
+            document.getElementById('user-display').innerText = "SESSION ACTIVE : " + userName.toUpperCase();
+            drawProducts();
+        } else {
+            alert("Veuillez remplir correctement les champs.");
+        }
+    }
+
+    function drawProducts() {
+        const shelf = document.getElementById('shelf');
+        shelf.innerHTML = STOCK.map(prod => `
+            <div class="item-card">
+                <img src="${prod.img}">
+                <div class="item-details">
+                    <p class="item-name">${prod.n}</p>
+                    <p class="item-price">${prod.p.toLocaleString()} F</p>
+                    <button class="btn-add" onclick="buy(${prod.id})">+ AJOUTER</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function buy(id) {
+        let p = STOCK.find(x => x.id === id);
+        basket.push(p);
+        let total = basket.reduce((sum, x) => sum + x.p, 0);
+        document.getElementById('cart-qty').innerText = basket.length;
+        document.getElementById('cart-total').innerText = total.toLocaleString() + " F CFA";
+    }
+
+    function sendToWhatsApp() {
+        if(basket.length === 0) return alert("Votre panier est vide");
+        let total = basket.reduce((sum, x) => sum + x.p, 0);
+        let list = basket.map(x => x.n).join(', ');
+        let msg = `NOUVELLE COMMANDE - BLAKIS GLOBAL\nClient : ${userName}\nArticles : ${list}\nTotal à payer : ${total} F CFA`;
+        window.location.href = "https://wa.me/225XXXXXXXX?text=" + encodeURIComponent(msg);
+    }
+</script>
 
 </body>
 </html>
