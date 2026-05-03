@@ -37,4 +37,22 @@
     </div>
 
 </body>
-</html>
+</html><?php
+// Connexion à la base de données
+$db = new PDO('mysql:host=localhost;dbname=ma_boutique', 'root', '');
+
+// On récupère les produits
+$requete = $db->query("SELECT * FROM produits");
+$produits = $requete->fetchAll();
+
+foreach($produits as $p) {
+    echo "
+    <div class='product-card'>
+        <img src='{$p['image']}'>
+        <h3>{$p['nom']}</h3>
+        <p>{$p['prix']} FCFA</p>
+        <button>Acheter</button>
+    </div>";
+}
+?>
+
