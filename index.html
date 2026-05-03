@@ -111,4 +111,43 @@
         }
     </script>
 </body>
-</html>
+</html><div class="product-card" onclick="openDetails('Nom de l\'article', 'Prix FCFA', 'Ancien Prix', 40)">
+
+<div id="product-details" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:2000; overflow-y:auto;">
+    <div style="padding:15px; border-bottom:1px solid #ddd;" onclick="closeDetails()"><i class="fa fa-arrow-left"></i> Retour</div>
+    
+    <div style="padding:15px;">
+        <div style="background:red; color:white; padding:10px; font-weight:bold;">⚡ Ventes Flash</div>
+        <h2 id="detail-name" style="font-size:18px;"></h2>
+        <div style="font-size:22px; font-weight:bold;" id="detail-price"></div>
+        <div style="text-decoration:line-through; color:gray;" id="detail-old-price"></div>
+        
+        <div class="stock-bar" style="margin:20px 0; height:10px; background:#eee;">
+            <div id="detail-stock-fill" style="height:100%; background:orange; width:0%;"></div>
+        </div>
+
+        <p><strong>TAILLES DISPONIBLES</strong></p>
+        <div style="display:flex; gap:5px;">
+            <div style="border:1px solid #ddd; padding:10px;">40</div>
+            <div style="border:1px solid #ddd; padding:10px;">41</div>
+            <div style="border:1px solid #ddd; padding:10px;">42</div>
+        </div>
+    </div>
+
+    <div style="position:fixed; bottom:0; width:100%; display:flex; padding:10px; background:white; border-top:1px solid #ddd;">
+        <button style="background:orange; color:white; border:none; padding:15px; width:100%; font-weight:bold; border-radius:5px;">ACHETEZ MAINTENANT</button>
+    </div>
+</div>
+
+<script>
+function openDetails(name, price, oldPrice, stock) {
+    document.getElementById('detail-name').innerText = name;
+    document.getElementById('detail-price').innerText = price;
+    document.getElementById('detail-old-price').innerText = oldPrice;
+    document.getElementById('detail-stock-fill').style.width = stock + '%';
+    document.getElementById('product-details').style.display = 'block';
+}
+function closeDetails() {
+    document.getElementById('product-details').style.display = 'none';
+}
+</script>
