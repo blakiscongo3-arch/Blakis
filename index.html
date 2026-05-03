@@ -2,105 +2,39 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BLAKIS GLOBAL ÉNERGIE PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Exemple Produit Style Jumia</title>
     <style>
-        :root { --main: #FF6A00; --dark-bg: #050505; --card-bg: #121212; --text: #ffffff; }
-        body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: var(--text); margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; display: flex; justify-content: center; padding: 20px; }
+        
+        /* Conteneur du produit */
+        .card { background: white; width: 300px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; transition: 0.3s; }
+        .card:hover { transform: scale(1.02); }
 
-        /* ÉCRAN DE SÉCURITÉ OBLIGATOIRE */
-        #gatekeeper { position: fixed; inset: 0; background: var(--dark-bg); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 25px; }
-        .auth-card { width: 100%; max-width: 400px; text-align: center; background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid #333; }
-        input { width: 100%; padding: 15px; margin: 15px 0; border-radius: 10px; border: 1px solid #444; background: #000; color: white; font-size: 16px; box-sizing: border-box; }
-        .btn-entry { width: 100%; padding: 18px; background: var(--main); border: none; border-radius: 10px; font-weight: 800; cursor: pointer; color: #000; text-transform: uppercase; }
+        /* Image */
+        .image-box { width: 100%; height: 250px; background-color: #eee; display: flex; align-items: center; justify-content: center; color: #888; }
 
-        /* CONTENU DE L'APPLICATION */
-        #app-content { display: none; }
-        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--main); position: sticky; top: 0; z-index: 100; }
-        .container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; padding-bottom: 120px; }
-        .item-card { background: var(--card-bg); border-radius: 15px; border: 1px solid #222; overflow: hidden; display: flex; flex-direction: column; }
-        .item-card img { width: 100%; height: 130px; object-fit: cover; }
-        .item-details { padding: 12px; }
-        .item-name { font-size: 13px; color: #aaa; margin: 0; height: 34px; overflow: hidden; }
-        .item-price { font-size: 18px; color: var(--main); font-weight: 700; margin: 8px 0; }
-        .btn-add { width: 100%; background: #333; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-        .btn-add:active { background: var(--main); color: black; }
-
-        /* BARRE DE PANIER FIXE */
-        .cart-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--main); color: black; padding: 15px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; font-weight: 900; box-shadow: 0 -10px 30px rgba(0,0,0,0.5); display: none; }
+        /* Détails */
+        .info { padding: 15px; }
+        .brand { color: #757575; font-size: 12px; text-transform: uppercase; }
+        .title { font-size: 16px; margin: 5px 0; color: #313133; }
+        .price { font-size: 20px; font-weight: bold; color: #f68b1e; } /* Couleur Orange Jumia */
+        
+        /* Bouton */
+        .btn-add { width: 100%; background-color: #f68b1e; color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-add:hover { background-color: #e07b16; }
     </style>
 </head>
 <body>
 
-<div id="gatekeeper">
-    <div class="auth-card">
-        <h1 style="color: var(--main); margin-bottom: 5px;">BLAKIS GLOBAL</h1>
-        <p style="color: #888; font-size: 14px;">Identifiez-vous pour accéder au stock</p>
-        <input type="text" id="c-name" placeholder="Votre Nom">
-        <input type="tel" id="c-phone" placeholder="Votre Numéro WhatsApp">
-        <button class="btn-entry" onclick="unlock()">CRÉER MON COMPTE & ENTRER</button>
-    </div>
-</div>
-
-<div id="app-content">
-    <header>
-        <h1 style="margin:0; font-size: 18px;">BLAKIS GLOBAL ÉNERGIE</h1>
-    </header>
-
-    <div class="container" id="shelf">
+    <div class="card">
+        <div class="image-box">PHOTO PRODUIT</div>
+        <div class="info">
+            <p class="brand">Samsung</p>
+            <h3 class="title">Galaxy A54 - 128Go - Noir</h3>
+            <p class="price">215.000 FCFA</p>
+            <button class="btn-add">AJOUTER AU PANIER</button>
         </div>
-
-    <div class="cart-footer" id="cart-ui" onclick="finish()">
-        <div>
-            <span id="qty">0</span> ARTICLE(S)<br>
-            <span id="total" style="font-size: 18px;">0 F</span>
-        </div>
-        <div style="background: black; color: white; padding: 10px 15px; border-radius: 8px;">VALIDER ></div>
     </div>
-</div>
 
-<script>
-    // TON STOCK AVEC TES PRIX
-    const STOCK = [
-        { id: 1, n: "Panneau Solaire 200W Mono", p: 45000, img: "https://images.unsplash.com/photo-1509391366360-fe5bb58583bb" },
-        { id: 2, n: "Batterie Solaire 100Ah", p: 85000, img: "https://images.unsplash.com/photo-1617788131775-ceb2027fd12c" },
-        { id: 3, n: "Câble 2.5mm Rouge (100m)", p: 24000, img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc4b" }
-    ];
-
-    let myBasket = [];
-    let myUser = "";
-    const MY_WHATSAPP = "2250171404345"; // TON NUMÉRO EST ICI
-
-    function unlock() {
-        myUser = document.getElementById('c-name').value;
-        let phone = document.getElementById('c-phone').value;
-        if(myUser.length > 2 && phone.length > 7) {
-            document.getElementById('gatekeeper').style.display = 'none';
-            document.getElementById('app-content').style.display = 'block';
-            
-            // Envoi d'un log vers toi pour dire qu'un client est entré
-            let log = `ALERTE : ${myUser} (${phone}) vient d'ouvrir l'application !`;
-            window.open(`https://wa.me/${MY_WHATSAPP}?text=${encodeURIComponent(log)}`, '_blank');
-            
-            show();
-        } else {
-            alert("Remplissez votre nom et téléphone.");
-        }
-    }
-
-    function show() {
-        const shelf = document.getElementById('shelf');
-        shelf.innerHTML = STOCK.map(item => `
-            <div class="item-card">
-                <img src="${item.img}">
-                <div class="item-details">
-                    <p class="item-name">${item.n}</p>
-                    <p class="item-price">${item.p.toLocaleString()} F</p>
-                    <button class="btn-add" onclick="addToBasket(${item.id})">AJOUTER</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function addTo
+</body>
+</html>
