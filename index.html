@@ -2,93 +2,151 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLAKIS ÉLEC PRO | Boutique Officielle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BLAKIS ÉLEC PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff9800; --dark: #1a1a1a; --success: #25d366; --bg: #f8f9fa; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding-bottom: 50px; }
-        
-        /* En-tête style pro */
-        header { background: var(--dark); color: white; padding: 25px 15px; text-align: center; border-bottom: 4px solid var(--primary); }
-        header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
-        header p { margin: 5px 0 0; font-size: 13px; color: var(--primary); }
+        :root {
+            --primary-gold: #FFD700; /* Couleur luxe */
+            --deep-dark: #0A0A0A;    /* Fond haut de gamme */
+            --card-bg: #1A1A1A;      /* Cartes produits */
+            --text-main: #FFFFFF;
+            --accent-red: #FF4D4D;   /* Pour les prix qui attirent l'oeil */
+        }
 
-        /* Barre de catégories (comme les apps pro) */
-        .categories { display: flex; overflow-x: auto; padding: 15px; gap: 10px; background: white; white-space: nowrap; }
-        .cat-item { background: #eee; padding: 8px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-        .cat-active { background: var(--primary); color: white; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--deep-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
 
-        /* Grille de produits style Jumia/Alibaba */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; }
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eee; display: flex; flex-direction: column; }
-        .card img { width: 100%; height: 140px; object-fit: cover; }
-        
-        .card-body { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .card-body h3 { font-size: 13px; margin: 0; color: #333; line-height: 1.3; height: 34px; overflow: hidden; }
-        .price { font-size: 18px; color: #e91e63; font-weight: 600; margin: 8px 0; }
-        
-        /* Bouton de commande automatique */
-        .btn-order { background: var(--success); color: white; text-decoration: none; text-align: center; padding: 10px; font-size: 13px; font-weight: 600; border-radius: 8px; transition: 0.3s; }
-        .btn-order:active { transform: scale(0.95); }
+        /* En-tête minimalist style Tech-Chine */
+        .app-bar {
+            background: var(--deep-dark);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-        .footer-note { text-align: center; padding: 20px; font-size: 11px; color: #888; }
+        .app-bar h1 {
+            font-size: 20px;
+            margin: 0;
+            letter-spacing: 2px;
+            color: var(--primary-gold);
+            text-transform: uppercase;
+        }
+
+        /* Grille Haute Performance (2 colonnes) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 15px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: transform 0.2s;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            background-color: #222;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-title {
+            font-size: 13px;
+            font-weight: 400;
+            margin: 0;
+            height: 36px;
+            overflow: hidden;
+            color: #BBB;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 8px 0;
+            color: var(--primary-gold);
+        }
+
+        /* Bouton Action Directe WhatsApp */
+        .buy-button {
+            display: block;
+            background: var(--primary-gold);
+            color: black;
+            text-decoration: none;
+            text-align: center;
+            padding: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        /* Style des boutons quand on touche sur mobile */
+        .buy-button:active {
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
     </style>
 </head>
 <body>
 
-<header>
+<div class="app-bar">
     <h1>BLAKIS ÉLEC PRO</h1>
-    <p>⚡ Expert en Énergie Solaire & Bâtiment</p>
-</header>
-
-<div class="categories">
-    <div class="cat-item cat-active">Tous</div>
-    <div class="cat-item">Solaire</div>
-    <div class="cat-item">Câblage</div>
-    <div class="cat-item">Protection</div>
 </div>
 
-<div class="grid">
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb" alt="Solaire">
-        <div class="card-body">
-            <h3>Panneau Solaire 200W Mono-Cristallin</h3>
-            <p class="price">45 000 F</p>
-            <a href="https://wa.me/225XXXXXXXX?text=Bonjour%20Blakis,%20je%20veux%20le%20Panneau%20Solaire" class="btn-order">COMMANDER</a>
+<div class="product-grid">
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1509391366360-fe5bb58583bb" class="product-image">
+        <div class="product-info">
+            <h3 class="product-title">PANNEAU SOLAIRE 200W MONO</h3>
+            <p class="product-price">45.000 F</p>
+            <a href="https://wa.me/225XXXXXXXX?text=Commande%20Panneau%20Solaire%20200W" class="buy-button">ACHETER</a>
         </div>
     </div>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1617788131775-ceb2027fd12c" alt="Batterie">
-        <div class="card-body">
-            <h3>Batterie 100Ah GEL Haute Qualité</h3>
-            <p class="price">85 000 F</p>
-            <a href="https://wa.me/225XXXXXXXX?text=Bonjour%20Blakis,%20je%20veux%20la%20Batterie%20GEL" class="btn-order">COMMANDER</a>
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1617788131775-ceb2027fd12c" class="product-image">
+        <div class="product-info">
+            <h3 class="product-title">BATTERIE GEL 100Ah 12V</h3>
+            <p class="product-price">85.000 F</p>
+            <a href="https://wa.me/225XXXXXXXX?text=Commande%20Batterie%20100Ah" class="buy-button">ACHETER</a>
         </div>
     </div>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc4b" alt="Câble">
-        <div class="card-body">
-            <h3>Câble 2.5mm Bleu (100 mètres)</h3>
-            <p class="price">24 000 F</p>
-            <a href="https://wa.me/225XXXXXXXX?text=Bonjour%20Blakis,%20je%20veux%20le%20Câble%202.5mm" class="btn-order">COMMANDER</a>
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc4b" class="product-image">
+        <div class="product-info">
+            <h3 class="product-title">CÂBLE 2.5mm ROUGE (100m)</h3>
+            <p class="product-price">24.000 F</p>
+            <a href="https://wa.me/225XXXXXXXX?text=Commande%20Cable%202.5mm" class="buy-button">ACHETER</a>
         </div>
     </div>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1558002038-1055907df827" alt="Protection">
-        <div class="card-body">
-            <h3>Disjoncteur 16A Schneider Original</h3>
-            <p class="price">2 500 F</p>
-            <a href="https://wa.me/2250171404345?text=Bonjour%20Blakis,%20je%20veux%20le%20Disjoncteur" class="btn-order">COMMANDER</a>
+    <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1558002038-1055907df827" class="product-image">
+        <div class="product-info">
+            <h3 class="product-title">DISJONCTEUR 16A SCHNEIDER</h3>
+            <p class="product-price">2.500 F</p>
+            <a href="https://wa.me/225XXXXXXXX?text=Commande%20Disjoncteur%2016A" class="buy-button">ACHETER</a>
         </div>
     </div>
-</div>
-
-<div class="footer-note">
-    © 2026 Blakis Élec Pro - Bondoukou, Côte d'Ivoire
 </div>
 
 </body>
