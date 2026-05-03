@@ -1,78 +1,16 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BLAKIS GLOBAL ÉNERGIE PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --main: #FF6A00; --dark-bg: #050505; --card-bg: #121212; --text: #ffffff; }
-        body { font-family: 'Inter', sans-serif; background: var(--dark-bg); color: var(--text); margin: 0; padding: 0; }
+<div id="gate" style="position:fixed; inset:0; background:#000; z-index:10000; display:flex; align-items:center; justify-content:center; padding:20px;">
+    <div id="step1" style="background:#111; padding:30px; border-radius:20px; border:1px solid #333; width:100%; max-width:350px; text-align:center;">
+        <h1 style="color:#FF6A00;">BLAKIS GLOBAL</h1>
+        <p style="color:#888;">Inscription sécurisée</p>
+        <input type="text" id="reg-name" placeholder="Nom complet" style="width:100%; padding:15px; margin:10px 0; background:#000; color:white; border:1px solid #444; border-radius:10px;">
+        <input type="tel" id="reg-phone" placeholder="Numéro WhatsApp" style="width:100%; padding:15px; margin:10px 0; background:#000; color:white; border:1px solid #444; border-radius:10px;">
+        <button onclick="envoyerCode()" style="width:100%; padding:18px; background:#FF6A00; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">RECEVOIR MON CODE D'ACCÈS</button>
+    </div>
 
-        /* BLOCAGE ACCÈS - ÉCRAN INSCRIPTION */
-        #gatekeeper { position: fixed; inset: 0; background: var(--dark-bg); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 25px; }
-        .auth-card { width: 100%; max-width: 400px; text-align: center; background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid #333; }
-        input { width: 100%; padding: 15px; margin: 15px 0; border-radius: 10px; border: 1px solid #444; background: #000; color: white; font-size: 16px; box-sizing: border-box; }
-        .btn-entry { width: 100%; padding: 18px; background: var(--main); border: none; border-radius: 10px; font-weight: 800; cursor: pointer; color: #000; text-transform: uppercase; }
-
-        /* APPLICATION PRINCIPALE (CACHÉE) */
-        #app-content { display: none; }
-        header { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--main); position: sticky; top: 0; z-index: 100; }
-        
-        /* GRILLE DE MANIPULATION */
-        .container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; padding-bottom: 100px; }
-        .item-card { background: var(--card-bg); border-radius: 15px; border: 1px solid #222; overflow: hidden; display: flex; flex-direction: column; }
-        .item-card img { width: 100%; height: 140px; object-fit: cover; }
-        .item-details { padding: 12px; flex-grow: 1; }
-        .item-name { font-size: 13px; color: #aaa; margin: 0; height: 34px; overflow: hidden; }
-        .item-price { font-size: 18px; color: var(--main); font-weight: 700; margin: 8px 0; }
-        .btn-add { width: 100%; background: #333; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; }
-        .btn-add:active { background: var(--main); color: black; }
-
-        /* BARRE DE PANIER PROFESSIONNELLE */
-        .cart-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--main); color: black; padding: 20px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; font-weight: 900; box-shadow: 0 -10px 30px rgba(0,0,0,0.5); border-radius: 20px 20px 0 0; }
-    </style>price: price});
-        
-        // Calcul du total
-        let total = basket.reduce((sum, item) => sum + item.price, 0);
-        
-        // Mise à jour de l'affichage
-        document.getElementById('cart-count').innerText = basket.length + " Article(s)";
-        document.getElementById('cart-total').innerText = total.toLocaleString() + " F CFA";
-        
-        // Vibration ou petit message pour dire que ça a marché
-        console.log("Ajouté : " + itemName);
-    }
-
-    // 3. FONCTION POUR ENVOYER LA COMMANDE (WHATSAPP)
-    function sendOrder() {
-        if(basket.length === 0) return alert("Votre panier est vide !");
-        let list = basket.map(x => x.name).join(', ');
-        let total = basket.reduce((sum, item) => sum + item.price, 0);
-        
-        let message = `COMMANDE BLAKIS GLOBAL\nClient : ${currentUser}\nArticles : ${list}\nTotal : ${total} F CFA`;
-        window.location.href = "https://wa.me/225XXXXXXXX?text=" + encodeURIComponent(message);
-    }
-</script><script>
-function validerCompte() {
-    let nom = document.getElementById('reg-name').value;
-    let tel = document.getElementById('reg-phone').value;
-
-    if(nom.length > 2 && tel.length > 7) {
-        // 1. On cache le mur pour laisser entrer le client
-        document.getElementById('gate').style.display = 'none';
-        document.getElementById('app-content').style.display = 'block';
-        
-        // 2. On envoie le message de confirmation à Blakis (le boss)
-        let messageBienvenue = `LOG : Nouveau compte créé !\nClient : ${nom}\nContact : ${tel}\nStatut : Accès autorisé.`;
-        
-        // Ceci ouvre une fenêtre invisible pour envoyer l'info
-        window.open(`https://wa.me/225XXXXXXXX?text=${encodeURIComponent(messageBienvenue)}`, '_blank');
-        
-        alert("Félicitations " + nom + " ! Votre compte est activé.");
-    } else {
-        alert("Veuillez remplir toutes les informations.");
-    }
-}
-</script>
-
+    <div id="step2" style="display:none; background:#111; padding:30px; border-radius:20px; border:1px solid #333; width:100%; max-width:350px; text-align:center;">
+        <h2 style="color:#FF6A00;">Vérification</h2>
+        <p style="color:#888;">Entrez le code reçu sur WhatsApp</p>
+        <input type="number" id="input-code" placeholder="Code à 4 chiffres" style="width:100%; padding:15px; margin:10px 0; background:#000; color:white; border:1px solid #444; border-radius:10px; text-align:center; font-size:24px; letter-spacing:10px;">
+        <button onclick="verifierCode()" style="width:100%; padding:18px; background:#25D366; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">VALIDER ET ENTRER</button>
+    </div>
+</div>
